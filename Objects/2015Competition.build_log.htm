@@ -1,0 +1,173 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.16a
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Gian Miguel Sero Del Mundo, HKUST Robotics Team, LIC=21E2Z-JGIYT-PB3EG-VCI3B-GS948-EZYFW
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Standard  Version: 5.16a
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 (build 20)
+Assembler:       Armasm.exe V5.06 (build 20)
+Linker/Locator:  ArmLink.exe V5.06 (build 20)
+Library Manager: ArmAr.exe V5.06 (build 20)
+Hex Converter:   FromElf.exe V5.06 (build 20)
+CPU DLL:         SARMCM3.DLL V5.16a
+Dialog DLL:      DCM.DLL V1.13.2.0
+Target DLL:      UL2CM3.DLL V1.155.12.0
+Dialog DLL:      TCM.DLL V1.14.5.0
+ 
+<h2>Project:</h2>
+C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\2015Competition.uvprojx
+Project File Date:  11/03/2015
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild target 'STM32f103CBT_TEMPLATE'
+assembling startup_stm32f10x_md.s...
+compiling core_cm3.c...
+compiling stm32f10x_bkp.c...
+compiling misc.c...
+compiling stm32f10x_cec.c...
+compiling stm32f10x_adc.c...
+compiling stm32f10x_crc.c...
+compiling stm32f10x_can.c...
+compiling stm32f10x_dac.c...
+compiling stm32f10x_dbgmcu.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_dma.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_flash.c...
+compiling stm32f10x_fsmc.c...
+compiling stm32f10x_i2c.c...
+compiling stm32f10x_iwdg.c...
+compiling stm32f10x_pwr.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_rtc.c...
+compiling stm32f10x_sdio.c...
+compiling stm32f10x_spi.c...
+compiling stm32f10x_tim.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_wwdg.c...
+compiling system_stm32f10x.c...
+compiling LEDs.c...
+LEDs.c(47): warning:  #1-D: last line of file ends without a newline
+  }
+LEDs.c: 1 warning, 0 errors
+compiling tft_display.c...
+compiling ticks.c...
+compiling pneumatic_control.c...
+pneumatic_control.h(5): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+pneumatic_control.h(6): warning:  #1-D: last line of file ends without a newline
+  void pneumatic_control(GPIO_TypeDef* PORT,u16 gpio_pin,u8 state);
+pneumatic_control.c: 2 warnings, 0 errors
+compiling adc.c...
+adc.c(72): warning:  #1-D: last line of file ends without a newline
+  }
+adc.c: 1 warning, 0 errors
+compiling button.c...
+compiling GPIO_switch.c...
+GPIO_switch.c(32): warning:  #1-D: last line of file ends without a newline
+  }
+GPIO_switch.c: 1 warning, 0 errors
+compiling linear_ccd.c...
+linear_ccd.h(25): warning:  #1295-D: Deprecated declaration linear_ccd_print - give arg types
+  void linear_ccd_print();
+linear_ccd.h(26): warning:  #1295-D: Deprecated declaration linear_ccd_clear - give arg types
+  void linear_ccd_clear();
+linear_ccd.h(27): warning:  #1295-D: Deprecated declaration check_angle - give arg types
+  int check_angle();
+linear_ccd.h(28): warning:  #1295-D: Deprecated declaration wheel_speed_on_arc - give arg types
+  int wheel_speed_on_arc();
+linear_ccd.c(206): warning:  #940-D: missing return statement at end of non-void function "wheel_speed_on_arc"
+  }
+linear_ccd.c(197): warning:  #177-D: variable "leftspeed" was declared but never referenced
+  	double leftspeed = 0;
+linear_ccd.c(198): warning:  #177-D: variable "rightspeed" was declared but never referenced
+  	double rightspeed = 0;
+linear_ccd.c(199): warning:  #177-D: variable "wheelbase" was declared but never referenced
+  	double wheelbase = 0;
+linear_ccd.c: 8 warnings, 0 errors
+compiling motor.c...
+motor.c(91): warning:  #1-D: last line of file ends without a newline
+  }
+motor.c: 1 warning, 0 errors
+compiling buzzer.c...
+buzzer.c(63): warning:  #177-D: variable "GPIO_InitStruct" was declared but never referenced
+    GPIO_InitTypeDef GPIO_InitStruct;
+buzzer.c: 1 warning, 0 errors
+compiling buzzer_song.c...
+compiling servo_tutorial.c...
+compiling uart.c...
+compiling encoder.c...
+encoder.h(18): warning:  #1295-D: Deprecated declaration encoder_init - give arg types
+  void encoder_init();
+encoder.h(19): warning:  #1295-D: Deprecated declaration gpio_init - give arg types
+  void gpio_init();
+encoder.h(20): warning:  #1295-D: Deprecated declaration timer_init - give arg types
+  void timer_init();
+encoder.h(22): warning:  #1295-D: Deprecated declaration getCount - give arg types
+  u32 getCount();
+encoder.c(65): warning:  #68-D: integer conversion resulted in a change of sign
+  	else if (prevCount - currCount < -
+NCODER_MAX_CHANGE){
+encoder.c: 5 warnings, 0 errors
+compiling helper.c...
+linear_ccd.h(25): warning:  #1295-D: Deprecated declaration linear_ccd_print - give arg types
+  void linear_ccd_print();
+linear_ccd.h(26): warning:  #1295-D: Deprecated declaration linear_ccd_clear - give arg types
+  void linear_ccd_clear();
+linear_ccd.h(27): warning:  #1295-D: Deprecated declaration check_angle - give arg types
+  int check_angle();
+linear_ccd.h(28): warning:  #1295-D: Deprecated declaration wheel_speed_on_arc - give arg types
+  int wheel_speed_on_arc();
+helper.c: 4 warnings, 0 errors
+compiling main.c...
+linear_ccd.h(25): warning:  #1295-D: Deprecated declaration linear_ccd_print - give arg types
+  void linear_ccd_print();
+linear_ccd.h(26): warning:  #1295-D: Deprecated declaration linear_ccd_clear - give arg types
+  void linear_ccd_clear();
+linear_ccd.h(27): warning:  #1295-D: Deprecated declaration check_angle - give arg types
+  int check_angle();
+linear_ccd.h(28): warning:  #1295-D: Deprecated declaration wheel_speed_on_arc - give arg types
+  int wheel_speed_on_arc();
+linear_ccd.h(25): warning:  #1295-D: Deprecated declaration linear_ccd_print - give arg types
+  void linear_ccd_print();
+linear_ccd.h(26): warning:  #1295-D: Deprecated declaration linear_ccd_clear - give arg types
+  void linear_ccd_clear();
+linear_ccd.h(27): warning:  #1295-D: Deprecated declaration check_angle - give arg types
+  int check_angle();
+linear_ccd.h(28): warning:  #1295-D: Deprecated declaration wheel_speed_on_arc - give arg types
+  int wheel_speed_on_arc();
+main.c: 8 warnings, 0 errors
+linking...
+Program Size: Code=28108 RO-data=1844 RW-data=12464 ZI-data=4992  
+FromELF: creating hex file...
+After Build - User command #1: "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\flash.bat"
+================================================
+||         Shortcut of Hex Flashing           ||
+||        By Kenneth Au (02/02/2015)          ||
+================================================
+Checking the hex file...
+ERROR: Missing argument 1 (the *.hex file location). In Keil, use "./output/@H.hex".
+This batch file requires FOUR arguments:
+   Arg1: The *.hex file location. In Keil, use "./output/@H.hex".
+   Arg2: The COM Port number (e.g., COM30). 
+   Arg3: Baudrate (e.g., 115200, 256000).
+   Arg4: Target device (e.g., STM32F1_XL-density_768K). It may be auto detected from the Flash Loader GUI. 
+ERROR: Input redirection is not supported, exiting the process immediately.
+".\Objects\2015Competition.axf" - 0 Error(s), 32 Warning(s).
+
+<h2>Collection of Component include folders:</h2>
+  C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE
+  C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:07
+</pre>
+</body>
+</html>
