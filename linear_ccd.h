@@ -24,6 +24,3 @@ void linear_ccd_init(void);
 void linear_ccd_read(void);
 void linear_ccd_print();
 void linear_ccd_clear();
-int check_angle();
-int wheel_speed_on_arc();
-void array_init(void);
