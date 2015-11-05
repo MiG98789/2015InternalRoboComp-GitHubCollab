@@ -26,3 +26,4 @@
 .\objects\linear_ccd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 .\objects\linear_ccd.o: motor.h
 .\objects\linear_ccd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\linear_ccd.o: motor.h

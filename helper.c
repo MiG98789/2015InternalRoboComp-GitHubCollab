@@ -23,7 +23,7 @@ void init(void)
 	button_init();
 	servo_init();
 	
-	buzzer_set_volume(BUZZER_volume);
+	//buzzer_set_volume(BUZZER_volume);
 	
 #if (defined(LCD_orientation_index) && defined(LCD_background_color) && defined(LCD_text_color) && defined(LCD_special_color))
 	tft_init(LCD_orientation_index, LCD_background_color, LCD_text_color, LCD_special_color);
