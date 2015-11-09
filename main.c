@@ -1,27 +1,29 @@
 #include "main.h"
 
 void bluetooth_listener(const uint8_t byte){
-	LED_ON(GPIOA, GPIO_Pin_15);
-	LED_ON(GPIOB, GPIO_Pin_3);
-	LED_ON(GPIOB, GPIO_Pin_4);	
-	
 	switch(byte){
+		//case for left gripper
 		
+		//case for right gripper
+		
+		//case for pivoting left
+		
+		//case for pivoting right
+		
+		//case for moving forward
+		
+		//case for moving backward
+		
+		//case for beginning autozone
+		
+		//case for raising flag
+		
+		//case for dropping shuttlecock and hitting with racket
+
 			}
 }
 
-//int main(void)
-//{
-//	LED_INIT();
-//	ticks_init();
-//	uart_init(COM3, 115200);
-//	uart_interrupt_init(COM3, &bluetooth_listener);
-//	
-//	while(1){
-//		uart_interrupt(COM3);		
-//		}
-//}
-
+//Global variables
 int road_pos = 64;
 int mean_array[10];
 int maf = 64;
@@ -29,14 +31,16 @@ int mai;
 
 int main(void){
 	init();
-	
+	uart_init(COM3, 115200);
+	uart_interrupt_init(COM3, &bluetooth_listener);
 	for(int i = 0; i < 10; i++){
 		mean_array[i] = 64;
 	}
-
-	motor_control(1,0,200);
 	
-		//while(1){
+	//---AUTOZONE (LINE TRACER)---//
+	
+	//motor_control(1,0, 100);
+			//while(1){
 			//if(get_ms_ticks() % 50 == 0){
 					//tft_prints(0, 0, "       ");
 					//tft_prints(0, 0, "%d", get_angle()*10);
@@ -45,13 +49,69 @@ int main(void){
 			//}
 		//}
 		
+	
+	
+	
+	
+	
+	//---MANUALZONE (PICKING UP TUBES)---//
+	/*
+	while(1){
+		uart_interrupt(COM3);		
+		}
+		*/
 		
-return 0;
+		
+		//---AUTOZONE (LINE TRACER)---//
+		
+		
+		
+		
+		//---MANUALZONE (RAISE FLAG AND HIT SHUTTLECOCK)---//
+		/*
+		while(1){
+		uart_interrupt(COM3);		
+		}
+		*/
+		
+		
+	return 0;
 }
 
-/////-----VVVVVVVVVV-----/////
-//---SEE OTHER FUNCTIONS---//
+/*
+*
+*
+*
+*
+*
+*/
 
+/////-----VVVVVVVVVV-----/////
+//---AUTOZONE (LINE TRACER)---//
+
+//---!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT NOTES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---//
+/*
+-    	Consider only the biggest for get_road_pos -Vikram 
+-
+-				How to break out of while loop when: (A: Auto, M: Manual)
+-				--> Reached holder zone (A to M)
+-				-->	Start line tracing again	(M to A)
+-				--> Reached serving zone	(A to M)
+-
+-				If time allows (but still really important):
+--				--> Find a way to reset the whole int main(void){...}
+]-				--> Still need to know how to actually detect which holder tube is correct
+-
+-				TODO (before Saturday):
+-					--> Find the correct magnitude of motor_control() for wheels
+-					--> How to use get_angle() to turn (and from get_angle, when to call wheel_speed_on_arc())
+]--				--> Using the linear_ccd_buffer1[] list to find out if there is a 90 deg / 135 deg turn
+]-]-			IF POSSIBLE:	
+-						--> Find correct timing for hitting badminton
+]-					--> Set up basic bluetooth functions
+-						--> Setting up PS3 driver to use PS3 controller to emulate keyboard (using Scarlet Crush)
+-						--> Try to set up second version of code
+*/
 
 int get_road_pos(void){
 	int sum = 0;
@@ -61,9 +121,11 @@ int get_road_pos(void){
 	for(int i = 0; i < 128; i++){
 		tft_put_pixel(i, linear_ccd_buffer1[i], BLACK);
 	}
+	/*
 	for(int j = 0; j < 160; j++){
 		tft_put_pixel(road_pos, j, BLACK);
 	}
+	*/
 	
 	//---Updating CCD and getting road_pos---//
 	linear_ccd_read();
@@ -87,46 +149,21 @@ int get_road_pos(void){
 		road_pos = sum/count;		
 	}
 					
-	//---Printing road_pos---//
+	//---Printing road_pos as a vertical line---//
 	/*for(int j = 0; j < 160; j++){
 		tft_put_pixel(road_pos, j, YELLOW);
 	}
 	*/
+	
 	return road_pos;
 }
 
-//---!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!WORK HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!--//
-/*
--    Consider only the biggest 
--
--
--
--
--
--
--
---
-]-
--
--
--
--
--
-]--
-]-]-
--
-]-
--
-*/
-
 int get_moving_average(void){
-	mai = maf;
 	int sum = 0;
 	
 	for(int i = 0; i < 9; i++){
 		mean_array[i] = mean_array[i+1];
 	}
-	
 	mean_array[9] = get_road_pos();
 	
 	for(int j = 0; j < 10; j++){
@@ -140,9 +177,24 @@ int get_moving_average(void){
 
 int get_didt(void){
 	int didt = 0;
+	int i = 0;
 	
-	didt = (get_moving_average() - mai)/0.01;
-		
+	while(i<10){
+		if(get_ms_ticks()%10 == 0){
+			for(i = 0; i < 10; i++){
+				if(i == 0){
+					mai = get_moving_average();
+				}
+				else if(i == 9){
+					didt = (get_moving_average() - mai)/0.01;
+				}
+				else{
+					get_moving_average();
+				}
+			}
+		}
+	}
+	
 	return didt;
 }
 
@@ -173,5 +225,5 @@ int wheel_speed_on_arc(){
 		rightspeed = 0.5;
 	}
 	
-	motor_control(1, 0, 100*leftspeed);
+	motor_control(1, 0, 400*leftspeed);
 }

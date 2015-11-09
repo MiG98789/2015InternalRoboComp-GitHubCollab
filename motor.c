@@ -29,7 +29,7 @@ void motor_init(){
 
 	//------------------------------//
 	TIM_TimeBaseStructure.TIM_Prescaler = 71;												//clk=72M/(71+1)= Hz, interval=? 
-	TIM_TimeBaseStructure.TIM_Period = 5000;												//pulse cycle=x  xperiod for one up
+	TIM_TimeBaseStructure.TIM_Period = 200;												//pulse cycle=x  xperiod for one up
 	//------------------------------//366hz
 	//40300for turn on  
 

@@ -535,7 +535,7 @@ I (.\stm32f10x_std\inc\misc.h)(0x5611650C)
 I (buzzer_song.h)(0x56227241)
 I (buzzer.h)(0x5617F007)
 I (.\stm32f10x_std\inc\stm32f10x_tim.h)(0x56116534)
-F (.\motor.c)(0x56376CC6)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
+F (.\motor.c)(0x5640C274)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
 I (motor.h)(0x561163D6)
 I (.\stm32f10x_std\inc\stm32f10x.h)(0x5611650E)
 I (.\stm32f10x_std\inc\core_cm3.h)(0x5611650A)
@@ -643,7 +643,7 @@ I (.\stm32f10x_std\inc\stm32f10x_spi.h)(0x56116534)
 I (.\stm32f10x_std\inc\stm32f10x_usart.h)(0x56116536)
 I (.\stm32f10x_std\inc\misc.h)(0x5611650C)
 I (.\stm32f10x_std\inc\stm32f10x_tim.h)(0x56116534)
-F (.\helper.c)(0x563B5B38)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\helper.o --omf_browse .\objects\helper.crf --depend .\objects\helper.d)
+F (.\helper.c)(0x5640E8F2)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\helper.o --omf_browse .\objects\helper.crf --depend .\objects\helper.d)
 I (helper.h)(0x56378A55)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55AEF5F2)
@@ -680,7 +680,7 @@ I (servo_tutorial.h)(0x5617C68A)
 I (GPIO_switch.h)(0x5617F049)
 I (button.h)(0x5617F052)
 I (uart.h)(0x563D9B1A)
-F (.\main.c)(0x5640B836)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x5640EEA7)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (main.h)(0x56378A53)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55AEF5F2)
