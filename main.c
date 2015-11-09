@@ -1,31 +1,57 @@
 #include "main.h"
 
+void bluetooth_listener(const uint8_t byte){
+	LED_ON(GPIOA, GPIO_Pin_15);
+	LED_ON(GPIOB, GPIO_Pin_3);
+	LED_ON(GPIOB, GPIO_Pin_4);	
+	
+	switch(byte){
+		
+			}
+}
+
+//int main(void)
+//{
+//	LED_INIT();
+//	ticks_init();
+//	uart_init(COM3, 115200);
+//	uart_interrupt_init(COM3, &bluetooth_listener);
+//	
+//	while(1){
+//		uart_interrupt(COM3);		
+//		}
+//}
+
 int road_pos = 64;
 int mean_array[10];
-int ma = 64;
+int maf = 64;
+int mai;
 
 int main(void){
-	tft_init(0, BLACK, WHITE, WHITE);
-	linear_ccd_init();
-	adc_init();
-	ticks_init();
+	init();
 	
 	for(int i = 0; i < 10; i++){
 		mean_array[i] = 64;
 	}
 
+	motor_control(1,0,200);
 	
-		while(1){
-			if(get_ms_ticks() % 50 == 0){
-					tft_prints(0, 0, "       ");
-					tft_prints(0, 0, "%d", get_road_pos());
-					tft_update();
-			}
-		}
+		//while(1){
+			//if(get_ms_ticks() % 50 == 0){
+					//tft_prints(0, 0, "       ");
+					//tft_prints(0, 0, "%d", get_angle()*10);
+					//tft_update();
+					
+			//}
+		//}
 		
 		
 return 0;
 }
+
+/////-----VVVVVVVVVV-----/////
+//---SEE OTHER FUNCTIONS---//
+
 
 int get_road_pos(void){
 	int sum = 0;
@@ -62,10 +88,10 @@ int get_road_pos(void){
 	}
 					
 	//---Printing road_pos---//
-	for(int j = 0; j < 160; j++){
-		tft_put_pixel(road_pos, j, WHITE);
+	/*for(int j = 0; j < 160; j++){
+		tft_put_pixel(road_pos, j, YELLOW);
 	}
-	
+	*/
 	return road_pos;
 }
 
@@ -94,7 +120,8 @@ int get_road_pos(void){
 */
 
 int get_moving_average(void){
-	int first_val = mean_array[0];
+	mai = maf;
+	int sum = 0;
 	
 	for(int i = 0; i < 9; i++){
 		mean_array[i] = mean_array[i+1];
@@ -102,63 +129,49 @@ int get_moving_average(void){
 	
 	mean_array[9] = get_road_pos();
 	
-	ma += (mean_array[9] - first_val)/10;
+	for(int j = 0; j < 10; j++){
+		sum += mean_array[j];
+	}
 	
-	return ma;
+	maf = sum/10;
+	
+	return maf;
 }
 
-
-//---!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!WORK HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!--//
-/*
--
--
--
--
--
--
--
--
---
-]-
--
--
--
--
--
-]--
-]-]-
--
-]-
--
-*/
-
-
-
 int get_didt(void){
-	double didt = 0;
+	int didt = 0;
 	
-	didt = (ma-get_moving_average())/0.01;
+	didt = (get_moving_average() - mai)/0.01;
 		
 	return didt;
 }
 
-int check_angle(void){
-	double mperpx = 0; //need to find thru test
-	double angle = 0;
-	double speed = 0; //need to find thru test
+int get_angle(void){
+	double mperpx = 0.26; //need to find thru test (from 15cm high, can see 26 cm)
+	int angle = 0;
+	double speed = 0.5; //need to find thru test
 	
 	angle = atan((-1*mperpx/(speed*64))*get_didt());
 	return angle;
 }
 
 int wheel_speed_on_arc(){
-	double leftspeed = 0;
-	double rightspeed = 0;
+	double leftspeed = 0.5;
+	double rightspeed = 0.5;
 	double wheelbase = 0.4;
 	
-	//if turning right
-	//rightspeed = leftspeed*(1-wheelbase)/(1+wheelbase);
+	if(get_angle() > 0){
+	rightspeed = leftspeed*(1-wheelbase)/(1+wheelbase);
+	}
 	
-	//else
-	// leftspeed = rightspeed*(1-wheelbase)/(1+wheelbase);
+	else if(get_angle() < 0){
+	leftspeed = rightspeed*(1-wheelbase)/(1+wheelbase);
+	}
+	
+	else{
+		leftspeed = 0.5;
+		rightspeed = 0.5;
+	}
+	
+	motor_control(1, 0, 100*leftspeed);
 }
