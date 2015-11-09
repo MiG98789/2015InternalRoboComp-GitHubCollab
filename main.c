@@ -111,6 +111,10 @@ int main(void){
 ]-					--> Set up basic bluetooth functions
 -						--> Setting up PS3 driver to use PS3 controller to emulate keyboard (using Scarlet Crush)
 -						--> Try to set up second version of code
+-
+-				IMPORTANT POINT TO SHARE WITH HARDWARE SECTOR AS WELL:
+-					--> When testing the motor driver, motor_control(0, 0, 100); was used. However, for the first
+-							argument, only 1 or 2 can be input. If 0 is input, it does not really do anything.
 */
 
 int get_road_pos(void){
