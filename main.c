@@ -1,40 +1,61 @@
+//---!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT NOTES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---//
+/*
+-    	Consider only the biggest for get_road_pos -Vikram 
+-
+-			Moved some declarations into main.h so that order of declaration of functions and variables
+-			will not matter
+-
+-				How to break out of while loop when: (A: Auto, M: Manual)
+-					--> Reached holder zone (A to M)
+-					-->	Start line tracing again	(M to A)
+-					--> Reached serving zone	(A to M)
+-
+-				If time allows (but still really important):
+-					--> Find a way to reset the whole int main(void){...}
+-					--> Still need to know how to actually detect which holder tube is correct
+-							SUGGESTED BY HARDWARE:
+-								--> Either (1) pass current through gripper and automatically grip if detected current
+-								--> Or (2) light up LED if current is detected
+-
+-				TODO (before Saturday):
+-					--> Find the correct magnitude of motor_control() for wheels
+-					--> How to use get_angle() to turn (and from get_angle, when to call wheel_speed_on_arc())
+--				--> Using the linear_ccd_buffer1[] list to find out if there is a 90 deg / 135 deg turn
+-					IF POSSIBLE:	
+-						--> Find correct timing for hitting badminton
+-						--> Set up basic bluetooth functions
+-						--> Setting up PS3 driver to use PS3 controller to emulate keyboard (using Scarlet Crush)
+-						--> Try to set up second version of code
+-
+-				IMPORTANT POINT TO SHARE WITH HARDWARE SECTOR AS WELL:
+-					--> When testing the motor driver, motor_control(0, 0, 100); was used. However, for the first
+-							argument, only 1 or 2 can be input. If 0 is input, it does not really do anything.
+*/
+
 #include "main.h"
 
-void bluetooth_listener(const uint8_t byte){
-	switch(byte){
-		//case for left gripper
-		
-		//case for right gripper
-		
-		//case for pivoting left
-		
-		//case for pivoting right
-		
-		//case for moving forward
-		
-		//case for moving backward
-		
-		//case for beginning autozone
-		
-		//case for raising flag
-		
-		//case for dropping shuttlecock and hitting with racket
-
-			}
-}
-
-//Global variables
-int road_pos = 64;
-int mean_array[10];
-int maf = 64;
-int mai;
-
 int main(void){
-	init();
+	motor_init();
+	pneumatic_init();
+	LED_INIT();
+	linear_ccd_init();
+	tft_init(0, BLACK, WHITE, WHITE);
+	ticks_init();
+	adc_init();
 	uart_init(COM3, 115200);
 	uart_interrupt_init(COM3, &bluetooth_listener);
 	for(int i = 0; i < 10; i++){
 		mean_array[i] = 64;
+	}
+	
+	
+	while(1){
+		if(get_ms_ticks()%50 != 0 && get_ms_ticks()%25 == 0){
+			pneumatic_control(GPIOA, GPIO_Pin_9,1);
+		}
+		else if(get_ms_ticks()%50 == 0){
+			pneumatic_control(GPIOA, GPIO_Pin_9,0);
+		}
 	}
 	
 	//---AUTOZONE (LINE TRACER)---//
@@ -89,34 +110,6 @@ int main(void){
 /////-----VVVVVVVVVV-----/////
 //---AUTOZONE (LINE TRACER)---//
 
-//---!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT NOTES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---//
-/*
--    	Consider only the biggest for get_road_pos -Vikram 
--
--				How to break out of while loop when: (A: Auto, M: Manual)
--				--> Reached holder zone (A to M)
--				-->	Start line tracing again	(M to A)
--				--> Reached serving zone	(A to M)
--
--				If time allows (but still really important):
---				--> Find a way to reset the whole int main(void){...}
-]-				--> Still need to know how to actually detect which holder tube is correct
--
--				TODO (before Saturday):
--					--> Find the correct magnitude of motor_control() for wheels
--					--> How to use get_angle() to turn (and from get_angle, when to call wheel_speed_on_arc())
-]--				--> Using the linear_ccd_buffer1[] list to find out if there is a 90 deg / 135 deg turn
-]-]-			IF POSSIBLE:	
--						--> Find correct timing for hitting badminton
-]-					--> Set up basic bluetooth functions
--						--> Setting up PS3 driver to use PS3 controller to emulate keyboard (using Scarlet Crush)
--						--> Try to set up second version of code
--
--				IMPORTANT POINT TO SHARE WITH HARDWARE SECTOR AS WELL:
--					--> When testing the motor driver, motor_control(0, 0, 100); was used. However, for the first
--							argument, only 1 or 2 can be input. If 0 is input, it does not really do anything.
-*/
-
 int get_road_pos(void){
 	int sum = 0;
 	int count = 0;
@@ -163,6 +156,7 @@ int get_road_pos(void){
 }
 
 int get_moving_average(void){
+	mai = maf;
 	int sum = 0;
 	
 	for(int i = 0; i < 9; i++){
@@ -182,7 +176,7 @@ int get_moving_average(void){
 int get_didt(void){
 	int didt = 0;
 	int i = 0;
-	
+	/*
 	while(i<10){
 		if(get_ms_ticks()%10 == 0){
 			for(i = 0; i < 10; i++){
@@ -198,20 +192,23 @@ int get_didt(void){
 			}
 		}
 	}
+			*/
+		
+		didt = (get_moving_average() - mai)/0.01;
 	
 	return didt;
 }
 
 int get_angle(void){
 	double mperpx = 0.26; //need to find thru test (from 15cm high, can see 26 cm)
-	int angle = 0;
+	double angle = 0;
 	double speed = 0.5; //need to find thru test
 	
-	angle = atan((-1*mperpx/(speed*64))*get_didt());
+	angle = atan((-1*mperpx/(speed*64))*get_didt())*1000;
 	return angle;
 }
 
-int wheel_speed_on_arc(){
+int wheel_speed_on_arc(void){
 	double leftspeed = 0.5;
 	double rightspeed = 0.5;
 	double wheelbase = 0.4;
@@ -230,4 +227,101 @@ int wheel_speed_on_arc(){
 	}
 	
 	motor_control(1, 0, 400*leftspeed);
+}
+
+/////-----VVVVVVVVVV-----/////
+//---MANUALZONE---//
+
+void bluetooth_listener(const uint8_t byte){	
+	switch(byte){
+		//case for left gripper
+		case 'o':
+			if(lgrip == false){
+				pneumatic_control(GPIOA, GPIO_Pin_9, 1);
+				lgrip = true;
+			}
+			else{
+				pneumatic_control(GPIOA, GPIO_Pin_9, 0);
+				lgrip = false;
+			}
+			break;
+		
+		//case for right gripper
+		case 'p':
+		if(rgrip == false){
+			pneumatic_control(GPIOA, GPIO_Pin_10, 1);
+			rgrip = true;
+		}
+		else{
+			pneumatic_control(GPIOA, GPIO_Pin_10, 0);
+			rgrip = false;
+		}
+		break;
+		
+		//case for pivoting left
+		case 'd':
+			motor_control(1,0,200); //right wheel forward
+			motor_control(2,1,200); //left wheel backward
+			break;
+		
+		//case for pivoting right
+		case 'a':
+			motor_control(1,1,200); //right wheel backward
+			motor_control(2,0,200); //left wheel forward
+			break;
+		
+		//case for moving forward
+		case 'w':
+			motor_control(1,0,200);
+			motor_control(2,0,200);
+			break;
+		
+		//case for moving backward
+		case 's':
+			motor_control(1,1,200);
+			motor_control(2,1,200);
+			break;
+		
+		//case for beginning autozone
+		case 'b':
+			isitmanualzone = false;
+			autozone();
+			break;
+		
+		//case for raising flag
+		case 'f':
+			if(flagraise == false){
+				pneumatic_control(GPIOA, GPIO_Pin_11, 1);
+			}
+			else{
+				pneumatic_control(GPIOA, GPIO_Pin_11, 0);
+			}
+			
+		
+		//case for dropping shuttlecock and hitting with racket
+
+			}
+}
+
+
+/////-----VVVVVVVVVV-----/////
+//---TRANSITION BETWEEN AUTOZONE AND MANUALZONE---//
+
+
+int autozone(void){
+	isitautozone = true;
+	
+	while(isitautozone == true){
+		if(get_ms_ticks()%50 == 0){
+			get_angle();
+			//if condition, when met, change isitautozone to false
+		}
+	}
+}
+
+int manualzone(void){
+	isitmanualzone = true;
+	while(isitmanualzone == true){
+		uart_interrupt(COM3);
+	}
 }

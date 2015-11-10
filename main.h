@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 #include "stm32f10x.h"
 #include "ticks.h"
 #include "LEDs.h"
@@ -19,9 +20,31 @@
 #include "button.h"
 #include "uart.h"
 #include "servo_tutorial.h"
+#include "pneumatic_control.h"
 
 #define MAX_CCRn			1000
 #define MIN_CCRn			450
 #define GetCCRn(deg)	(((float)deg / 180) * 600 + MIN_CCRn)
 
 #endif /* __MAIN_H */
+
+//Global variables
+int road_pos = 64;
+int mean_array[10];
+int maf = 64;
+int mai;
+bool lgrip = false;
+bool rgrip = false;
+bool flagraise = false;
+bool isitautozone = false;
+bool isitmanualzone = false;
+
+void bluetooth_listener(const uint8_t byte);
+int main(void);
+int get_road_pos(void);
+int get_moving_average(void);
+int get_didt(void);
+int get_angle(void);
+int wheel_speed_on_arc(void);
+int autozone(void);
+int manualzone(void);
