@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <stdint.h>
 #include <math.h>
 #include "stm32f10x.h"
 #include "ticks.h"
@@ -25,6 +25,17 @@
 #define MAX_CCRn			1000
 #define MIN_CCRn			450
 #define GetCCRn(deg)	(((float)deg / 180) * 600 + MIN_CCRn)
+	
+#define forward 'w'
+#define backward 's'
+#define pivotleft 'a'
+#define pivotright 'd'
+#define stop 32
+#define lgrip 'o'
+#define rgrip 'p'
+#define beginautozone 'b'
+#define raiseflag 'f'
+#define hit 'h'
 
 #endif /* __MAIN_H */
 
@@ -33,11 +44,11 @@ int road_pos = 64;
 int mean_array[10];
 int maf = 64;
 int mai;
-bool lgrip = false;
-bool rgrip = false;
-bool flagraise = false;
-bool isitautozone = false;
-bool isitmanualzone = false;
+int uselgrip = 0;
+int usergrip = 0;
+int flagraise = 0;
+char autoormanual;
+int racketswing = 0;
 
 void bluetooth_listener(const uint8_t byte);
 int main(void);

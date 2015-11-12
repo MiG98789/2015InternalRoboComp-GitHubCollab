@@ -7,15 +7,15 @@
 -
 -				How to break out of while loop when: (A: Auto, M: Manual)
 -					--> Reached holder zone (A to M)
--					-->	Start line tracing again	(M to A)
+-					(X) -->	Start line tracing again	(M to A)
 -					--> Reached serving zone	(A to M)
 -
 -				If time allows (but still really important):
 -					--> Find a way to reset the whole int main(void){...}
--					--> Still need to know how to actually detect which holder tube is correct
--							SUGGESTED BY HARDWARE:
--								--> Either (1) pass current through gripper and automatically grip if detected current
--								--> Or (2) light up LED if current is detected
+-					(X) --> Still need to know how to actually detect which holder tube is correct
+-							(X) SUGGESTED BY HARDWARE:
+-								(X) --> Either (1) pass current through gripper and automatically grip if detected current
+-								(X) --> Or (2) light up LED if current is detected
 -
 -				TODO (before Saturday):
 -					--> Find the correct magnitude of motor_control() for wheels
@@ -23,13 +23,14 @@
 --				--> Using the linear_ccd_buffer1[] list to find out if there is a 90 deg / 135 deg turn
 -					IF POSSIBLE:	
 -						--> Find correct timing for hitting badminton
--						--> Set up basic bluetooth functions
+-						(X) --> Set up basic bluetooth functions
 -						--> Setting up PS3 driver to use PS3 controller to emulate keyboard (using Scarlet Crush)
 -						--> Try to set up second version of code
 -
--				IMPORTANT POINT TO SHARE WITH HARDWARE SECTOR AS WELL:
--					--> When testing the motor driver, motor_control(0, 0, 100); was used. However, for the first
--							argument, only 1 or 2 can be input. If 0 is input, it does not really do anything.
+-				(X) IMPORTANT POINT TO SHARE WITH HARDWARE SECTOR AS WELL:
+-					(X) --> When testing the motor driver, motor_control(0, 0, 100); was used. However, for the first
+-							(X) argument, only 1 or 2 can be input. If 0 is input, it does not really do anything.
+-							--> GPIO pin starts at high voltage (because in GPIO_switch.c, GPIO mode is IPU
 */
 
 #include "main.h"
@@ -42,45 +43,39 @@ int main(void){
 	tft_init(0, BLACK, WHITE, WHITE);
 	ticks_init();
 	adc_init();
+	button_init();
+	GPIO_switch_init();
 	uart_init(COM3, 115200);
 	uart_interrupt_init(COM3, &bluetooth_listener);
 	for(int i = 0; i < 10; i++){
 		mean_array[i] = 64;
 	}
 	
-	
 	while(1){
-		if(get_ms_ticks()%50 != 0 && get_ms_ticks()%25 == 0){
-			pneumatic_control(GPIOA, GPIO_Pin_9,1);
+		if(read_GPIO_switch(GPIOA, GPIO_Pin_9) == 1){
+			LED_ON(GPIOA, GPIO_Pin_15);
 		}
-		else if(get_ms_ticks()%50 == 0){
-			pneumatic_control(GPIOA, GPIO_Pin_9,0);
+		else if(read_GPIO_switch(GPIOA,GPIO_Pin_9) == 0){
+			LED_OFF(GPIOA,GPIO_Pin_15);
 		}
 	}
 	
+	
 	//---AUTOZONE (LINE TRACER)---//
-	
-	//motor_control(1,0, 100);
-			//while(1){
-			//if(get_ms_ticks() % 50 == 0){
-					//tft_prints(0, 0, "       ");
-					//tft_prints(0, 0, "%d", get_angle()*10);
-					//tft_update();
-					
-			//}
-		//}
-		
-	
+	while(1){
+		if(autoormanual == 'a'){
+			autozone();
+		}
+		else if(autoormanual == 'm'){
+			manualzone();
+		}
+	}
 	
 	
 	
 	
 	//---MANUALZONE (PICKING UP TUBES)---//
-	/*
-	while(1){
-		uart_interrupt(COM3);		
-		}
-		*/
+	
 		
 		
 		//---AUTOZONE (LINE TRACER)---//
@@ -89,11 +84,7 @@ int main(void){
 		
 		
 		//---MANUALZONE (RAISE FLAG AND HIT SHUTTLECOCK)---//
-		/*
-		while(1){
-		uart_interrupt(COM3);		
-		}
-		*/
+
 		
 		
 	return 0;
@@ -235,72 +226,110 @@ int wheel_speed_on_arc(void){
 void bluetooth_listener(const uint8_t byte){	
 	switch(byte){
 		//case for left gripper
-		case 'o':
-			if(lgrip == false){
-				pneumatic_control(GPIOA, GPIO_Pin_9, 1);
-				lgrip = true;
+		case lgrip:
+			if(uselgrip%2 == 0){
+				pneumatic_control(GPIOB, GPIO_Pin_5, 1);
+				uselgrip++;
 			}
 			else{
-				pneumatic_control(GPIOA, GPIO_Pin_9, 0);
-				lgrip = false;
+				pneumatic_control(GPIOB, GPIO_Pin_5, 0);
+				uselgrip++;
 			}
+			
+			uart_tx_byte(COM3, 'o');
 			break;
 		
 		//case for right gripper
-		case 'p':
-		if(rgrip == false){
-			pneumatic_control(GPIOA, GPIO_Pin_10, 1);
-			rgrip = true;
-		}
-		else{
-			pneumatic_control(GPIOA, GPIO_Pin_10, 0);
-			rgrip = false;
-		}
-		break;
+		case rgrip:
+			if(usergrip%2 == 0){
+				pneumatic_control(GPIOB, GPIO_Pin_6, 1);
+				usergrip++;
+			}
+			else{
+				pneumatic_control(GPIOB, GPIO_Pin_6, 0);
+				usergrip++;
+			}
+		
+			uart_tx_byte(COM3, 'p');
+			break;
 		
 		//case for pivoting left
-		case 'd':
+		case pivotleft:
 			motor_control(1,0,200); //right wheel forward
 			motor_control(2,1,200); //left wheel backward
+		
+			uart_tx_byte(COM3, 'a');
 			break;
 		
 		//case for pivoting right
-		case 'a':
+		case pivotright:
 			motor_control(1,1,200); //right wheel backward
 			motor_control(2,0,200); //left wheel forward
+		
+			uart_tx_byte(COM3, 'd');
 			break;
 		
 		//case for moving forward
-		case 'w':
+		case forward:
 			motor_control(1,0,200);
 			motor_control(2,0,200);
+		
+			uart_tx_byte(COM3, 'w');
 			break;
 		
 		//case for moving backward
-		case 's':
+		case backward:
 			motor_control(1,1,200);
 			motor_control(2,1,200);
+		
+			uart_tx_byte(COM3, 's');
+			break;
+		
+		//case for stopping
+		case stop:
+			motor_control(1,0,0);
+			motor_control(2,0,0);
+		
+			uart_tx(COM3, "Space");
 			break;
 		
 		//case for beginning autozone
-		case 'b':
-			isitmanualzone = false;
-			autozone();
+		case beginautozone:
+			autoormanual = 'a';
+		
+			uart_tx_byte(COM3, 'b');
 			break;
 		
 		//case for raising flag
-		case 'f':
-			if(flagraise == false){
-				pneumatic_control(GPIOA, GPIO_Pin_11, 1);
+		case raiseflag:
+			if(flagraise%2 == 0){
+				pneumatic_control(GPIOB, GPIO_Pin_7, 1);
+				flagraise++;
 			}
 			else{
-				pneumatic_control(GPIOA, GPIO_Pin_11, 0);
+				pneumatic_control(GPIOB, GPIO_Pin_7, 0);
+				flagraise++;
 			}
+			
+			uart_tx_byte(COM3, 'f');
+			break;
 			
 		
 		//case for dropping shuttlecock and hitting with racket
-
+		case hit:
+			if(racketswing%2 == 0){
+				pneumatic_control(GPIOB, GPIO_Pin_8, 1);
+				racketswing++;
+			//servo for shuttlecock
 			}
+			else{
+				pneumatic_control(GPIOB, GPIO_Pin_8, 0);
+				racketswing++;
+			}
+			
+			uart_tx_byte(COM3, 'h');
+			break;
+	}
 }
 
 
@@ -309,19 +338,20 @@ void bluetooth_listener(const uint8_t byte){
 
 
 int autozone(void){
-	isitautozone = true;
+	autoormanual = 'a';
 	
-	while(isitautozone == true){
+	while(autoormanual == 'a'){
 		if(get_ms_ticks()%50 == 0){
 			get_angle();
-			//if condition, when met, change isitautozone to false
+			//if condition, when met, change autoormanual to false
 		}
 	}
 }
 
 int manualzone(void){
-	isitmanualzone = true;
-	while(isitmanualzone == true){
+	autoormanual = 'm';
+	
+	while(autoormanual == 'm'){
 		uart_interrupt(COM3);
 	}
 }

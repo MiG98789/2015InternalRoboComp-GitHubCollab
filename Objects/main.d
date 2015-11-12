@@ -2,11 +2,10 @@
 .\objects\main.o: main.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\main.o: .\stm32f10x_std\inc\stm32f10x.h
 .\objects\main.o: .\stm32f10x_std\inc\core_cm3.h
-.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\main.o: .\stm32f10x_std\inc\system_stm32f10x.h
 .\objects\main.o: .\stm32f10x_std\inc\stm32f10x_conf.h
 .\objects\main.o: .\stm32f10x_std\inc\stm32f10x_dma.h
@@ -33,6 +32,7 @@
 .\objects\main.o: buzzer_song.h
 .\objects\main.o: motor.h
 .\objects\main.o: helper.h
+.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
 .\objects\main.o: LEDs.h
 .\objects\main.o: linear_ccd.h

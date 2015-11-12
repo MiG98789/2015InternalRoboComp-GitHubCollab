@@ -492,7 +492,7 @@ I (.\stm32f10x_std\inc\stm32f10x_rcc.h)(0x5611652C)
 I (.\stm32f10x_std\inc\stm32f10x_spi.h)(0x56116534)
 I (.\stm32f10x_std\inc\stm32f10x_usart.h)(0x56116536)
 I (.\stm32f10x_std\inc\misc.h)(0x5611650C)
-F (.\GPIO_switch.c)(0x561163C4)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\gpio_switch.o --omf_browse .\objects\gpio_switch.crf --depend .\objects\gpio_switch.d)
+F (.\GPIO_switch.c)(0x56436677)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\gpio_switch.o --omf_browse .\objects\gpio_switch.crf --depend .\objects\gpio_switch.d)
 I (GPIO_switch.h)(0x5617F049)
 I (.\stm32f10x_std\inc\stm32f10x_gpio.h)(0x56116524)
 I (.\stm32f10x_std\inc\stm32f10x.h)(0x5611650E)
@@ -680,15 +680,14 @@ I (servo_tutorial.h)(0x5617C68A)
 I (GPIO_switch.h)(0x5617F049)
 I (button.h)(0x5617F052)
 I (uart.h)(0x563D9B1A)
-F (.\main.c)(0x5641C1C6)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (main.h)(0x5641AC43)
+F (.\main.c)(0x564441D9)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (main.h)(0x564436A3)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55AEF5F2)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55AEF5F2)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x55AEF5F2)
 I (.\stm32f10x_std\inc\stm32f10x.h)(0x5611650E)
 I (.\stm32f10x_std\inc\core_cm3.h)(0x5611650A)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
 I (.\stm32f10x_std\inc\system_stm32f10x.h)(0x5611653A)
 I (.\stm32f10x_std\inc\stm32f10x_conf.h)(0x56116516)
 I (.\stm32f10x_std\inc\stm32f10x_dma.h)(0x5611651C)
@@ -713,6 +712,7 @@ I (linear_ccd.h)(0x563B874A)
 I (motor.h)(0x561163D6)
 I (buzzer_song.h)(0x56227241)
 I (helper.h)(0x56378A55)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x55AEF5F2)
 I (servo_tutorial.h)(0x5617C68A)
 I (GPIO_switch.h)(0x5617F049)
