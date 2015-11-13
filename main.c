@@ -5,13 +5,17 @@
 -			Moved some declarations into main.h so that order of declaration of functions and variables
 -			will not matter
 -
+-			Changed speed to be dependent on a ratio	
+-
+-			motor_control PWMx: 1 for PB15, 2 for PB14
+-
 -				How to break out of while loop when: (A: Auto, M: Manual)
--					--> Reached holder zone (A to M)
+-					(X) --> Reached holder zone (A to M)
 -					(X) -->	Start line tracing again	(M to A)
--					--> Reached serving zone	(A to M)
+-					(X) --> Reached serving zone	(A to M)
 -
 -				If time allows (but still really important):
--					--> Find a way to reset the whole int main(void){...}
+-					(X) --> Find a way to reset the whole int main(void){...}
 -					(X) --> Still need to know how to actually detect which holder tube is correct
 -							(X) SUGGESTED BY HARDWARE:
 -								(X) --> Either (1) pass current through gripper and automatically grip if detected current
@@ -19,8 +23,10 @@
 -
 -				TODO (before Saturday):
 -					--> Find the correct magnitude of motor_control() for wheels
--					--> How to use get_angle() to turn (and from get_angle, when to call wheel_speed_on_arc())
---				--> Using the linear_ccd_buffer1[] list to find out if there is a 90 deg / 135 deg turn
+-					--> How to use get_angle() to turn 
+-					--> When to call wheel_speed_on_arc()
+-					(X) --> What to do on a 90deg turn
+-					--> What to do on a 135deg turn
 -					IF POSSIBLE:	
 -						--> Find correct timing for hitting badminton
 -						(X) --> Set up basic bluetooth functions
@@ -50,43 +56,16 @@ int main(void){
 	for(int i = 0; i < 10; i++){
 		mean_array[i] = 64;
 	}
-	
+	/*
 	while(1){
-		if(read_GPIO_switch(GPIOA, GPIO_Pin_9) == 1){
-			LED_ON(GPIOA, GPIO_Pin_15);
-		}
-		else if(read_GPIO_switch(GPIOA,GPIO_Pin_9) == 0){
-			LED_OFF(GPIOA,GPIO_Pin_15);
-		}
-	}
-	
-	
-	//---AUTOZONE (LINE TRACER)---//
-	while(1){
-		if(autoormanual == 'a'){
+		if(autoormanual == 0){
 			autozone();
 		}
-		else if(autoormanual == 'm'){
+		else if(autoormanual == 1){
 			manualzone();
 		}
-	}
-	
-	
-	
-	
-	//---MANUALZONE (PICKING UP TUBES)---//
-	
-		
-		
-		//---AUTOZONE (LINE TRACER)---//
-		
-		
-		
-		
-		//---MANUALZONE (RAISE FLAG AND HIT SHUTTLECOCK)---//
-
-		
-		
+	}	
+	*/
 	return 0;
 }
 
@@ -105,15 +84,15 @@ int get_road_pos(void){
 	int sum = 0;
 	int count = 0;
 	
-	//---Clearing TFT---//
-	for(int i = 0; i < 128; i++){
-		tft_put_pixel(i, linear_ccd_buffer1[i], BLACK);
-	}
-	/*
-	for(int j = 0; j < 160; j++){
-		tft_put_pixel(road_pos, j, BLACK);
-	}
-	*/
+//	//---Clearing TFT---//
+//	for(int i = 0; i < 128; i++){
+//		tft_put_pixel(i, linear_ccd_buffer1[i], BLACK);
+//	}
+//	/*
+//	for(int j = 0; j < 160; j++){
+//		tft_put_pixel(road_pos, j, BLACK);
+//	}
+//	*/
 	
 	//---Updating CCD and getting road_pos---//
 	linear_ccd_read();
@@ -121,17 +100,17 @@ int get_road_pos(void){
 	//---Updating TFT and calculating road_pos---//
 	for(int i = 0; i < 128; i++){
 		if(linear_ccd_buffer1[i] >= 150){
-			tft_put_pixel(i, linear_ccd_buffer1[i], WHITE);
+			//tft_put_pixel(i, linear_ccd_buffer1[i], WHITE);
 			sum = sum + i;
 			count++;
 		}
-		else{
-			tft_put_pixel(i, linear_ccd_buffer1[i], BLUE);
-		}
+//	else{
+//		tft_put_pixel(i, linear_ccd_buffer1[i], BLUE);
+//	}
 	}
 			
 	if(count < 5){
-		road_pos = 64;
+		road_pos = -1;
 	}
 	else{
 		road_pos = sum/count;		
@@ -165,7 +144,6 @@ int get_moving_average(void){
 }
 
 int get_didt(void){
-	int didt = 0;
 	int i = 0;
 	/*
 	while(i<10){
@@ -191,39 +169,70 @@ int get_didt(void){
 }
 
 int get_angle(void){
-	double mperpx = 0.26; //need to find thru test (from 15cm high, can see 26 cm)
-	double angle = 0;
+	double halfccdrange = 0.26; //need to find thru test (from 15cm high, can see 26 cm)
 	double speed = 0.5; //need to find thru test
 	
-	angle = atan((-1*mperpx/(speed*64))*get_didt())*1000;
+	angle = atan((-1*halfccdrange/(speed*64))*get_didt())*1000;
 	return angle;
 }
 
 int wheel_speed_on_arc(void){
-	double leftspeed = 0.5;
-	double rightspeed = 0.5;
 	double wheelbase = 0.4;
 	
-	if(get_angle() > 0){
-	rightspeed = leftspeed*(1-wheelbase)/(1+wheelbase);
+	if(angle > 0){
+	rightspeedratio = leftspeedratio*(1-wheelbase)/(1+wheelbase);
 	}
 	
-	else if(get_angle() < 0){
-	leftspeed = rightspeed*(1-wheelbase)/(1+wheelbase);
+	else if(angle < 0){
+	leftspeedratio = rightspeedratio*(1-wheelbase)/(1+wheelbase);
 	}
-	
-	else{
-		leftspeed = 0.5;
-		rightspeed = 0.5;
-	}
-	
-	motor_control(1, 0, 400*leftspeed);
 }
+
+int stabiliser(void){
+	if(road_pos != -1 && road_pos <64){
+		rightspeedratio = 0.8;
+		leftspeedratio = 0.8;
+	}
+	else if(road_pos > 64){
+		rightspeedratio = 0.8;
+		leftspeedratio = 0.6;
+	}
+	else if(road_pos == 64){
+		rightspeedratio = 0.6;
+		leftspeedratio = 0.8;
+	}
+	else if(road_pos == -1){
+		rightspeedratio = 0;
+		leftspeedratio = 0;
+		autoormanual = 1;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /////-----VVVVVVVVVV-----/////
 //---MANUALZONE---//
 
 void bluetooth_listener(const uint8_t byte){	
+	rightspeedratio = 0.6;
+	leftspeedratio = 0.8;
+	
 	switch(byte){
 		//case for left gripper
 		case lgrip:
@@ -255,32 +264,32 @@ void bluetooth_listener(const uint8_t byte){
 		
 		//case for pivoting left
 		case pivotleft:
-			motor_control(1,0,200); //right wheel forward
-			motor_control(2,1,200); //left wheel backward
+			motor_control(1,1,motormag*rightspeedratio); //right wheel forward
+			motor_control(2,0,motormag*leftspeedratio); //left wheel backward
 		
 			uart_tx_byte(COM3, 'a');
 			break;
 		
 		//case for pivoting right
 		case pivotright:
-			motor_control(1,1,200); //right wheel backward
-			motor_control(2,0,200); //left wheel forward
+			motor_control(1,0,motormag*rightspeedratio); //right wheel backward
+			motor_control(2,1,motormag*leftspeedratio); //left wheel forward
 		
 			uart_tx_byte(COM3, 'd');
 			break;
 		
 		//case for moving forward
 		case forward:
-			motor_control(1,0,200);
-			motor_control(2,0,200);
+			motor_control(1,1,motormag*rightspeedratio);
+			motor_control(2,1,motormag*leftspeedratio);
 		
 			uart_tx_byte(COM3, 'w');
 			break;
 		
 		//case for moving backward
 		case backward:
-			motor_control(1,1,200);
-			motor_control(2,1,200);
+			motor_control(1,0,motormag*rightspeedratio);
+			motor_control(2,0,motormag*leftspeedratio);
 		
 			uart_tx_byte(COM3, 's');
 			break;
@@ -290,12 +299,12 @@ void bluetooth_listener(const uint8_t byte){
 			motor_control(1,0,0);
 			motor_control(2,0,0);
 		
-			uart_tx(COM3, "Space");
+			uart_tx(COM3, "%s","Stop");
 			break;
 		
 		//case for beginning autozone
 		case beginautozone:
-			autoormanual = 'a';
+			autoormanual = 0;
 		
 			uart_tx_byte(COM3, 'b');
 			break;
@@ -319,11 +328,13 @@ void bluetooth_listener(const uint8_t byte){
 		case hit:
 			if(racketswing%2 == 0){
 				pneumatic_control(GPIOB, GPIO_Pin_8, 1);
+				//if to set timing to release shuttlecock
+				pneumatic_control(GPIOB, GPIO_Pin_5, 1);
 				racketswing++;
-			//servo for shuttlecock
 			}
 			else{
 				pneumatic_control(GPIOB, GPIO_Pin_8, 0);
+				pneumatic_control(GPIOB, GPIO_Pin_5, 0);
 				racketswing++;
 			}
 			
@@ -333,25 +344,107 @@ void bluetooth_listener(const uint8_t byte){
 }
 
 
-/////-----VVVVVVVVVV-----/////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////-----VVVVVVVVVV-----///// 
 //---TRANSITION BETWEEN AUTOZONE AND MANUALZONE---//
 
-
+//If autozone code does not work, just try running stabiliser() on a while(autoormanual == 0) loop
 int autozone(void){
-	autoormanual = 'a';
+	autoormanual = 0;
 	
-	while(autoormanual == 'a'){
+	while(autoormanual == 0){		
 		if(get_ms_ticks()%50 == 0){
 			get_angle();
-			//if condition, when met, change autoormanual to false
+			
+			//between -90deg to 90deg
+			if(angle > -1570.79632679 && angle < 1570.79632679){ 
+				get_angle();
+				stabiliser();
+				motor_control(1,1,rightspeedratio*motormag);
+				motor_control(2,1,leftspeedratio*motormag);
+			}
+			
+			//90deg left
+			else if(angle > -1580.79632679 && angle < -1560.79632679){ 
+				int ticksi = get_ms_ticks();
+				rightspeedratio = 0.6;
+				leftspeedratio = 0.8;
+				motor_control(1,0,0);
+				motor_control(2,0,0);
+				
+				//wait 1 sec
+				while(get_ms_ticks() - ticksi < 1000){ 
+				}
+				
+				while(1){
+					get_angle();
+					
+					if(angle <= 0.174533 && angle >= -0.174533){
+						break;
+					}
+					
+					motor_control(1,0,motormag*rightspeedratio); //right wheel backward
+					motor_control(2,1,motormag*leftspeedratio); //left wheel forward
+				}
+			}
+			
+			//90deg right
+			else if(angle < 1580.79632679 && angle > 1560.79632679){ 
+				int ticksi = get_ms_ticks();
+				rightspeedratio = 0.6;
+				leftspeedratio = 0.8;
+				motor_control(1,0,0);
+				motor_control(2,0,0);
+				
+				//wait 1 sec
+				while(get_ms_ticks() - ticksi < 1000){ 
+				}
+				
+				while(1){
+					get_angle();
+					
+					if(angle <= 0.174533 && angle >= -0.174533){
+						break;
+					}
+					
+					motor_control(1,1,motormag*rightspeedratio); //right wheel forward
+					motor_control(2,0,motormag*leftspeedratio); //left wheel backward
+				}
+			}
+			
+			//else if for arc and 135deg
 		}
 	}
 }
 
 int manualzone(void){
-	autoormanual = 'm';
+	autoormanual = 1;
 	
-	while(autoormanual == 'm'){
+	while(autoormanual == 1){
 		uart_interrupt(COM3);
 	}
 }

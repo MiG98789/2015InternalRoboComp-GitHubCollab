@@ -1,4 +1,3 @@
-
 #ifndef __MAIN_H
 #define __MAIN_H
 
@@ -12,10 +11,7 @@
 #include "tft_display.h"
 #include "adc.h"
 #include "linear_ccd.h"
-#include "buzzer.h"
-#include "buzzer_song.h"
 #include "motor.h"
-#include "helper.h"
 #include "GPIO_switch.h"
 #include "button.h"
 #include "uart.h"
@@ -44,10 +40,15 @@ int road_pos = 64;
 int mean_array[10];
 int maf = 64;
 int mai;
+int didt = 0;
+double angle = 0;
+double leftspeedratio = 0.8;
+double rightspeedratio = 0.6;
+int motormag = 200;
 int uselgrip = 0;
 int usergrip = 0;
 int flagraise = 0;
-char autoormanual;
+int autoormanual = 0; //0 for auto, 1 for manual
 int racketswing = 0;
 
 void bluetooth_listener(const uint8_t byte);
@@ -57,5 +58,6 @@ int get_moving_average(void);
 int get_didt(void);
 int get_angle(void);
 int wheel_speed_on_arc(void);
+int stabiliser(void);
 int autozone(void);
 int manualzone(void);

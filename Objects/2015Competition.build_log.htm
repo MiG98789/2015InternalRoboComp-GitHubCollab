@@ -32,38 +32,36 @@ linear_ccd.h(25): warning:  #1295-D: Deprecated declaration linear_ccd_print - g
   void linear_ccd_print();
 linear_ccd.h(26): warning:  #1295-D: Deprecated declaration linear_ccd_clear - give arg types
   void linear_ccd_clear();
-linear_ccd.h(25): warning:  #1295-D: Deprecated declaration linear_ccd_print - give arg types
-  void linear_ccd_print();
-linear_ccd.h(26): warning:  #1295-D: Deprecated declaration linear_ccd_clear - give arg types
-  void linear_ccd_clear();
 pneumatic_control.h(5): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
   void pneumatic_init();
 pneumatic_control.h(6): warning:  #1-D: last line of file ends without a newline
   void pneumatic_control(GPIO_TypeDef* PORT,u16 gpio_pin,u8 state);
-main.h(61): warning:  #1-D: last line of file ends without a newline
+main.h(63): warning:  #1-D: last line of file ends without a newline
   int manualzone(void);
-main.c(169): warning:  #177-D: variable "i" was declared but never referenced
+main.c(147): warning:  #177-D: variable "i" was declared but never referenced
   	int i = 0;
-main.c(221): warning:  #940-D: missing return statement at end of non-void function "wheel_speed_on_arc"
+main.c(189): warning:  #940-D: missing return statement at end of non-void function "wheel_speed_on_arc"
   }
-main.c(349): warning:  #940-D: missing return statement at end of non-void function "autozone"
+main.c(209): warning:  #940-D: missing return statement at end of non-void function "stabiliser"
   }
-main.c(357): warning:  #1-D: last line of file ends without a newline
+main.c(442): warning:  #940-D: missing return statement at end of non-void function "autozone"
   }
-main.c(357): warning:  #940-D: missing return statement at end of non-void function "manualzone"
+main.c(450): warning:  #1-D: last line of file ends without a newline
   }
-main.c: 14 warnings, 0 errors
+main.c(450): warning:  #940-D: missing return statement at end of non-void function "manualzone"
+  }
+main.c: 11 warnings, 0 errors
 linking...
-Program Size: Code=28756 RO-data=1844 RW-data=8380 ZI-data=4996  
+Program Size: Code=29996 RO-data=1844 RW-data=8416 ZI-data=4992  
 FromELF: creating hex file...
-".\Objects\2015Competition.axf" - 0 Error(s), 12 Warning(s).
+".\Objects\2015Competition.axf" - 0 Error(s), 11 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

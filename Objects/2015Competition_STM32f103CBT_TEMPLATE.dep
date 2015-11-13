@@ -680,8 +680,8 @@ I (servo_tutorial.h)(0x5617C68A)
 I (GPIO_switch.h)(0x5617F049)
 I (button.h)(0x5617F052)
 I (uart.h)(0x563D9B1A)
-F (.\main.c)(0x564441D9)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (main.h)(0x564436A3)
+F (.\main.c)(0x5645EFD6)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (main.h)(0x5645DA63)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
@@ -710,12 +710,10 @@ I (adc.h)(0x561163B0)
 I (.\stm32f10x_std\inc\stm32f10x_adc.h)(0x56116510)
 I (linear_ccd.h)(0x563B874A)
 I (motor.h)(0x561163D6)
-I (buzzer_song.h)(0x56227241)
-I (helper.h)(0x56378A55)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55AEF5F2)
-I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x55AEF5F2)
-I (servo_tutorial.h)(0x5617C68A)
 I (GPIO_switch.h)(0x5617F049)
+I (buzzer_song.h)(0x56227241)
 I (button.h)(0x5617F052)
 I (uart.h)(0x563D9B1A)
+I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x55AEF5F2)
+I (servo_tutorial.h)(0x5617C68A)
 I (pneumatic_control.h)(0x561163DC)
