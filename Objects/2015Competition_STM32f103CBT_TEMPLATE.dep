@@ -393,7 +393,7 @@ I (.\stm32f10x_std\inc\stm32f10x_spi.h)(0x56116534)
 I (.\stm32f10x_std\inc\stm32f10x_usart.h)(0x56116536)
 I (.\stm32f10x_std\inc\misc.h)(0x5611650C)
 F (.\ticks.c)(0x562271CF)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\ticks.o --omf_browse .\objects\ticks.crf --depend .\objects\ticks.d)
-I (ticks.h)(0x5617F5A6)
+I (ticks.h)(0x56471822)
 I (buzzer.h)(0x5617F007)
 I (.\stm32f10x_std\inc\stm32f10x_gpio.h)(0x56116524)
 I (.\stm32f10x_std\inc\stm32f10x.h)(0x5611650E)
@@ -429,11 +429,11 @@ I (.\stm32f10x_std\inc\misc.h)(0x5611650C)
 I (1.8 TFT_ascii.h)(0x561163AE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x55AEF5F2)
-I (ticks.h)(0x5617F5A6)
+I (ticks.h)(0x56471822)
 I (buzzer.h)(0x5617F007)
 I (.\stm32f10x_std\inc\stm32f10x_tim.h)(0x56116534)
-F (.\linear_ccd.c)(0x563B876B)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\linear_ccd.o --omf_browse .\objects\linear_ccd.crf --depend .\objects\linear_ccd.d)
-I (linear_ccd.h)(0x563B874A)
+F (.\linear_ccd.c)(0x564B2E77)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\linear_ccd.o --omf_browse .\objects\linear_ccd.crf --depend .\objects\linear_ccd.d)
+I (linear_ccd.h)(0x564B2E74)
 I (adc.h)(0x561163B0)
 I (.\stm32f10x_std\inc\stm32f10x.h)(0x5611650E)
 I (.\stm32f10x_std\inc\core_cm3.h)(0x5611650A)
@@ -450,14 +450,14 @@ I (.\stm32f10x_std\inc\stm32f10x_spi.h)(0x56116534)
 I (.\stm32f10x_std\inc\stm32f10x_usart.h)(0x56116536)
 I (.\stm32f10x_std\inc\misc.h)(0x5611650C)
 I (.\stm32f10x_std\inc\stm32f10x_adc.h)(0x56116510)
-I (ticks.h)(0x5617F5A6)
+I (ticks.h)(0x56471822)
 I (buzzer.h)(0x5617F007)
 I (.\stm32f10x_std\inc\stm32f10x_tim.h)(0x56116534)
 I (tft_display.h)(0x561163EE)
 I (1.8 TFT_ascii.h)(0x561163AE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x55AEF5F2)
-I (motor.h)(0x561163D6)
+I (motor.h)(0x564B1B31)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x55AEF5F2)
 F (.\adc.c)(0x561163AE)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\adc.o --omf_browse .\objects\adc.crf --depend .\objects\adc.d)
 I (adc.h)(0x561163B0)
@@ -492,7 +492,7 @@ I (.\stm32f10x_std\inc\stm32f10x_rcc.h)(0x5611652C)
 I (.\stm32f10x_std\inc\stm32f10x_spi.h)(0x56116534)
 I (.\stm32f10x_std\inc\stm32f10x_usart.h)(0x56116536)
 I (.\stm32f10x_std\inc\misc.h)(0x5611650C)
-F (.\GPIO_switch.c)(0x56436677)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\gpio_switch.o --omf_browse .\objects\gpio_switch.crf --depend .\objects\gpio_switch.d)
+F (.\GPIO_switch.c)(0x5649C27C)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\gpio_switch.o --omf_browse .\objects\gpio_switch.crf --depend .\objects\gpio_switch.d)
 I (GPIO_switch.h)(0x5617F049)
 I (.\stm32f10x_std\inc\stm32f10x_gpio.h)(0x56116524)
 I (.\stm32f10x_std\inc\stm32f10x.h)(0x5611650E)
@@ -515,7 +515,7 @@ I (tft_display.h)(0x561163EE)
 I (1.8 TFT_ascii.h)(0x561163AE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x55AEF5F2)
-I (ticks.h)(0x5617F5A6)
+I (ticks.h)(0x56471822)
 F (.\button.c)(0x5617FDAB)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\button.o --omf_browse .\objects\button.crf --depend .\objects\button.d)
 I (button.h)(0x5617F052)
 I (.\stm32f10x_std\inc\stm32f10x_gpio.h)(0x56116524)
@@ -536,7 +536,7 @@ I (buzzer_song.h)(0x56227241)
 I (buzzer.h)(0x5617F007)
 I (.\stm32f10x_std\inc\stm32f10x_tim.h)(0x56116534)
 F (.\motor.c)(0x5640C274)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
-I (motor.h)(0x561163D6)
+I (motor.h)(0x564B1B31)
 I (.\stm32f10x_std\inc\stm32f10x.h)(0x5611650E)
 I (.\stm32f10x_std\inc\core_cm3.h)(0x5611650A)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
@@ -603,7 +603,7 @@ I (.\stm32f10x_std\inc\stm32f10x_rcc.h)(0x5611652C)
 I (.\stm32f10x_std\inc\stm32f10x_spi.h)(0x56116534)
 I (.\stm32f10x_std\inc\stm32f10x_usart.h)(0x56116536)
 I (.\stm32f10x_std\inc\misc.h)(0x5611650C)
-I (ticks.h)(0x5617F5A6)
+I (ticks.h)(0x56471822)
 I (buzzer.h)(0x5617F007)
 I (.\stm32f10x_std\inc\stm32f10x_tim.h)(0x56116534)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
@@ -663,7 +663,7 @@ I (.\stm32f10x_std\inc\stm32f10x_rcc.h)(0x5611652C)
 I (.\stm32f10x_std\inc\stm32f10x_spi.h)(0x56116534)
 I (.\stm32f10x_std\inc\stm32f10x_usart.h)(0x56116536)
 I (.\stm32f10x_std\inc\misc.h)(0x5611650C)
-I (ticks.h)(0x5617F5A6)
+I (ticks.h)(0x56471822)
 I (buzzer.h)(0x5617F007)
 I (.\stm32f10x_std\inc\stm32f10x_tim.h)(0x56116534)
 I (LEDs.h)(0x5617FB63)
@@ -672,16 +672,16 @@ I (1.8 TFT_ascii.h)(0x561163AE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x55AEF5F2)
 I (adc.h)(0x561163B0)
 I (.\stm32f10x_std\inc\stm32f10x_adc.h)(0x56116510)
-I (linear_ccd.h)(0x563B874A)
-I (motor.h)(0x561163D6)
+I (linear_ccd.h)(0x564B2E74)
+I (motor.h)(0x564B1B31)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x55AEF5F2)
 I (buzzer_song.h)(0x56227241)
 I (servo_tutorial.h)(0x5617C68A)
 I (GPIO_switch.h)(0x5617F049)
 I (button.h)(0x5617F052)
 I (uart.h)(0x563D9B1A)
-F (.\main.c)(0x5645EFD6)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (main.h)(0x5645DA63)
+F (.\main.c)(0x564CC884)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I "C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (main.h)(0x564CC825)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55AEF5F2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55AEF5F2)
@@ -699,7 +699,7 @@ I (.\stm32f10x_std\inc\stm32f10x_rcc.h)(0x5611652C)
 I (.\stm32f10x_std\inc\stm32f10x_spi.h)(0x56116534)
 I (.\stm32f10x_std\inc\stm32f10x_usart.h)(0x56116536)
 I (.\stm32f10x_std\inc\misc.h)(0x5611650C)
-I (ticks.h)(0x5617F5A6)
+I (ticks.h)(0x56471822)
 I (buzzer.h)(0x5617F007)
 I (.\stm32f10x_std\inc\stm32f10x_tim.h)(0x56116534)
 I (LEDs.h)(0x5617FB63)
@@ -708,8 +708,8 @@ I (1.8 TFT_ascii.h)(0x561163AE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x55AEF5F2)
 I (adc.h)(0x561163B0)
 I (.\stm32f10x_std\inc\stm32f10x_adc.h)(0x56116510)
-I (linear_ccd.h)(0x563B874A)
-I (motor.h)(0x561163D6)
+I (linear_ccd.h)(0x564B2E74)
+I (motor.h)(0x564B1B31)
 I (GPIO_switch.h)(0x5617F049)
 I (buzzer_song.h)(0x56227241)
 I (button.h)(0x5617F052)

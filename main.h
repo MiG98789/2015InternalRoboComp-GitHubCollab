@@ -21,7 +21,22 @@
 #define MAX_CCRn			1000
 #define MIN_CCRn			450
 #define GetCCRn(deg)	(((float)deg / 180) * 600 + MIN_CCRn)
-	
+
+#endif /* __MAIN_H */
+
+//---MAIN---//
+
+int main(void);
+void primitive_stabiliser(void);
+void all_init(void);
+int get_road_pos(void);
+
+int road_pos = 64;
+int mean_array[10];
+
+//---BLUETOOTH---//
+void bluetooth_listener(const uint8_t byte);
+
 #define forward 'w'
 #define backward 's'
 #define pivotleft 'a'
@@ -33,31 +48,51 @@
 #define raiseflag 'f'
 #define hit 'h'
 
-#endif /* __MAIN_H */
+int uselgrip = 0;
+int usergrip = 0;
+int flagraise = 0;
+int racketswing = 0;
+double leftspeedratio = 0.8;
+double rightspeedratio = 0.4;
+int leftdirection = 1;
+int rightdirection = 1;
+int motormag = 180;
+int autoormanual = 0;
 
-//Global variables
-int road_pos = 64;
-int mean_array[10];
+
+
+
+
+
+
+
+
+//---VVVVVVV---JUNK FOR NOW---VVVVVVV---//
+
+//---ANGLE---//
 int maf = 64;
 int mai;
 int didt = 0;
 double angle = 0;
-double leftspeedratio = 0.8;
-double rightspeedratio = 0.6;
-int motormag = 200;
-int uselgrip = 0;
-int usergrip = 0;
-int flagraise = 0;
-int autoormanual = 0; //0 for auto, 1 for manual
-int racketswing = 0;
+int ccd_refined[128];
+int inter_ccd[16];
 
-void bluetooth_listener(const uint8_t byte);
-int main(void);
-int get_road_pos(void);
 int get_moving_average(void);
 int get_didt(void);
 int get_angle(void);
 int wheel_speed_on_arc(void);
+
+//---AREA---//
+int area(void);
 int stabiliser(void);
-int autozone(void);
-int manualzone(void);
+
+double Larea = 0;
+double Marea = 0;
+double Rarea = 0;
+int areaflag = 0;
+
+//---DECASTELJAU ALGORITHM---//
+u32 deCasteljau(u32 args[], double t);
+
+//---RAMER-DOUGLAS-PEUCKER ALGORITHM---//
+u32 DouglasPeucker(u32 args[], int startIndex, int lastIndex, double epsilon);
