@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\Objects\2015Competition.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\2015Competition.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060020: Last Updated: Thu Nov 19 23:59:04 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060020: Last Updated: Fri Nov 20 03:08:11 2015
 <BR><P>
 <H3>Maximum Stack Usage =        448 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-bluetooth_listener &rArr; tft_prints &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
+bluetooth_listener &rArr; main &rArr; tft_prints &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
 <P>
 <H3>
 Functions with no stack information
@@ -91,7 +91,7 @@ Function Pointers
  <LI><a href="#[3d]">_get_lc_ctype</a> from lc_ctype_c.o(locale$$code) referenced from rt_ctype_table.o(.text)
  <LI><a href="#[3c]">_printf_input_char</a> from _printf_char_common.o(.text) referenced from _printf_char_common.o(.text)
  <LI><a href="#[3b]">_sputc</a> from _sputc.o(.text) referenced from vsprintf.o(.text)
- <LI><a href="#[114]">bluetooth_listener</a> from main.o(.text) referenced from main.o(.text)
+ <LI><a href="#[115]">bluetooth_listener</a> from main.o(.text) referenced from main.o(.text)
 </UL>
 <P>
 <H3>
@@ -1368,7 +1368,7 @@ Global Symbols
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
 </UL>
 
 <P><STRONG><a name="[98]"></a>LED_blink</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, leds.o(.text), UNUSED)
@@ -1390,8 +1390,9 @@ Global Symbols
 
 <P><STRONG><a name="[232]"></a>get_us_ticks</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, ticks.o(.text), UNUSED)
 
-<P><STRONG><a name="[116]"></a>get_ms_ticks</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, ticks.o(.text))
+<P><STRONG><a name="[111]"></a>get_ms_ticks</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, ticks.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
 </UL>
 
 <P><STRONG><a name="[233]"></a>get_second_ticks</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, ticks.o(.text), UNUSED)
@@ -1408,7 +1409,7 @@ Global Symbols
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
 </UL>
 
 <P><STRONG><a name="[2a]"></a>TIM2_IRQHandler</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, ticks.o(.text))
@@ -1436,7 +1437,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;simple_delay1_ms
 </UL>
-<BR>[Called By]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
+<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_reset
 </UL>
 
@@ -1542,7 +1543,7 @@ Global Symbols
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_command
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_spi_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
 </UL>
 
 <P><STRONG><a name="[236]"></a>tft_enable</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, tft_display.o(.text), UNUSED)
@@ -1611,7 +1612,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_set_pixel_pos
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_write_data
 </UL>
-<BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_road_pos
+<BR>[Called By]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_road_pos
 </UL>
 
 <P><STRONG><a name="[c6]"></a>tft_char_is_changed</STRONG> (Thumb, 186 bytes, Stack size 12 bytes, tft_display.o(.text))
@@ -1629,7 +1630,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stabiliser
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;area
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_clear_row
 </UL>
 
@@ -1647,7 +1648,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stabiliser
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;area
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
 </UL>
 
 <P><STRONG><a name="[cd]"></a>delay_57</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, linear_ccd.o(.text))
@@ -1692,7 +1693,7 @@ Global Symbols
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CLK
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_57
 </UL>
-<BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_road_pos
+<BR>[Called By]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_road_pos
 </UL>
 
 <P><STRONG><a name="[ce]"></a>linear_ccd_init</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, linear_ccd.o(.text))
@@ -1700,7 +1701,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
 </UL>
 
 <P><STRONG><a name="[23e]"></a>linear_ccd_print</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, linear_ccd.o(.text), UNUSED)
@@ -1727,7 +1728,7 @@ Global Symbols
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Cmd
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
 </UL>
 
 <P><STRONG><a name="[ca]"></a>get_adc</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, adc.o(.text))
@@ -1741,7 +1742,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
 </UL>
 
 <P><STRONG><a name="[df]"></a>pneumatic_control</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, pneumatic_control.o(.text))
@@ -1750,7 +1751,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
+<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
 </UL>
 
 <P><STRONG><a name="[e0]"></a>GPIO_switch_init</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, gpio_switch.o(.text))
@@ -1760,7 +1761,7 @@ Global Symbols
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
 </UL>
 
 <P><STRONG><a name="[e1]"></a>read_GPIO_switch</STRONG> (Thumb, 16 bytes, Stack size 16 bytes, gpio_switch.o(.text))
@@ -1783,7 +1784,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
 </UL>
 
 <P><STRONG><a name="[e6]"></a>read_button</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, button.o(.text), UNUSED)
@@ -1812,7 +1813,7 @@ Global Symbols
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
 </UL>
 
 <P><STRONG><a name="[f0]"></a>motor_control</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, motor.o(.text))
@@ -1824,9 +1825,9 @@ Global Symbols
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid_stabiliser
-<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
+<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
 </UL>
 
 <P><STRONG><a name="[f3]"></a>buzzer_off</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, buzzer.o(.text), UNUSED)
@@ -1918,7 +1919,7 @@ Global Symbols
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
 </UL>
 
 <P><STRONG><a name="[102]"></a>uart_interrupt</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, uart.o(.text))
@@ -1928,9 +1929,7 @@ Global Symbols
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_SetVectorTable
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_interrupt_init
+<BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_interrupt_init
 </UL>
 
 <P><STRONG><a name="[241]"></a>uart_printf_enable</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, uart.o(.text), UNUSED)
@@ -1943,7 +1942,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
+<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_tx
 </UL>
 
@@ -1954,7 +1953,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vsprintf
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_tx_byte
 </UL>
-<BR>[Called By]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
+<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
 </UL>
 
 <P><STRONG><a name="[108]"></a>uart_rx_byte</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, uart.o(.text), UNUSED)
@@ -1969,7 +1968,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_assert
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_interrupt
 </UL>
-<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
 </UL>
 
 <P><STRONG><a name="[33]"></a>USART1_IRQHandler</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, uart.o(.text))
@@ -1995,19 +1994,7 @@ Global Symbols
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
 </UL>
 
-<P><STRONG><a name="[10f]"></a>primitive_stabiliser</STRONG> (Thumb, 318 bytes, Stack size 24 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = primitive_stabiliser &rArr; uart_interrupt &rArr; USART_ITConfig
-</UL>
-<BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_interrupt
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_control
-</UL>
-<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[113]"></a>get_road_pos</STRONG> (Thumb, 130 bytes, Stack size 16 bytes, main.o(.text))
+<P><STRONG><a name="[10f]"></a>get_road_pos</STRONG> (Thumb, 192 bytes, Stack size 16 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = get_road_pos &rArr; tft_put_pixel &rArr; tft_set_pixel_pos &rArr; tft_write_data
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;linear_ccd_read
@@ -2016,15 +2003,30 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_moving_average
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
 </UL>
 
-<P><STRONG><a name="[114]"></a>bluetooth_listener</STRONG> (Thumb, 1308 bytes, Stack size 32 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 448 + Unknown Stack Size
-<LI>Call Chain = bluetooth_listener &rArr; tft_prints &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
+<P><STRONG><a name="[110]"></a>primitive_stabiliser</STRONG> (Thumb, 532 bytes, Stack size 24 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = primitive_stabiliser &rArr; get_road_pos &rArr; tft_put_pixel &rArr; tft_set_pixel_pos &rArr; tft_write_data
 </UL>
-<BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
+<BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_road_pos
+<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_control
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_ms_ticks
+</UL>
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[115]"></a>bluetooth_listener</STRONG> (Thumb, 1300 bytes, Stack size 32 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 448 + Unknown Stack Size
+<LI>Call Chain = bluetooth_listener &rArr; main &rArr; tft_prints &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
+</UL>
+<BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
+<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_tx
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_tx_byte
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_control
@@ -2035,7 +2037,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.text)
 </UL>
-<P><STRONG><a name="[115]"></a>all_init</STRONG> (Thumb, 108 bytes, Stack size 8 bytes, main.o(.text))
+<P><STRONG><a name="[116]"></a>all_init</STRONG> (Thumb, 108 bytes, Stack size 8 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 108 + Unknown Stack Size
 <LI>Call Chain = all_init &rArr; uart_init &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
@@ -2055,34 +2057,34 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[6e]"></a>main</STRONG> (Thumb, 212 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[6e]"></a>main</STRONG> (Thumb, 354 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 416 + Unknown Stack Size
 <LI>Call Chain = main &rArr; tft_prints &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
-<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_road_pos
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_interrupt
+<BR>[Calls]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;all_init
+<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_road_pos
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_GPIO_switch
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_update
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_prints
-<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_ms_ticks
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_ms_ticks
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_ON
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
+<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
 <P><STRONG><a name="[117]"></a>PID</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, main.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<BR><BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_road_pos
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_road_pos
 </UL>
 
-<P><STRONG><a name="[119]"></a>pid_stabiliser</STRONG> (Thumb, 672 bytes, Stack size 24 bytes, main.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<P><STRONG><a name="[119]"></a>pid_stabiliser</STRONG> (Thumb, 406 bytes, Stack size 24 bytes, main.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
@@ -2090,13 +2092,13 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[11e]"></a>get_moving_average</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, main.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_road_pos
+<BR><BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_road_pos
 </UL>
 <BR>[Called By]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_didt
 </UL>
 
 <P><STRONG><a name="[11f]"></a>get_didt</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, main.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<BR><BR>[Calls]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_moving_average
@@ -2106,25 +2108,25 @@ Global Symbols
 
 <P><STRONG><a name="[120]"></a>get_angle</STRONG> (Thumb, 122 bytes, Stack size 72 bytes, main.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_didt
 </UL>
 
-<P><STRONG><a name="[122]"></a>wheel_speed_on_arc</STRONG> (Thumb, 150 bytes, Stack size 40 bytes, main.o(.text), UNUSED)
+<P><STRONG><a name="[122]"></a>wheel_speed_on_arc</STRONG> (Thumb, 380 bytes, Stack size 40 bytes, main.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
 
-<P><STRONG><a name="[124]"></a>area</STRONG> (Thumb, 440 bytes, Stack size 16 bytes, main.o(.text), UNUSED)
+<P><STRONG><a name="[124]"></a>area</STRONG> (Thumb, 326 bytes, Stack size 16 bytes, main.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_update
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tft_prints
@@ -2631,7 +2633,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[150]"></a>__kernel_poly</STRONG> (Thumb, 170 bytes, Stack size 24 bytes, poly.o(i.__kernel_poly), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR><BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
@@ -2654,7 +2656,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[121]"></a>atan</STRONG> (Thumb, 474 bytes, Stack size 40 bytes, atan.o(i.atan), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR><BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
@@ -2732,25 +2734,25 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 </UL>
 
-<P><STRONG><a name="[112]"></a>__aeabi_d2uiz</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dfixu.o(x$fpl$dfixu))
+<P><STRONG><a name="[114]"></a>__aeabi_d2uiz</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dfixu.o(x$fpl$dfixu))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2uiz
 </UL>
-<BR>[Called By]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
+<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
+<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
 </UL>
 
 <P><STRONG><a name="[15e]"></a>_dfixu</STRONG> (Thumb, 90 bytes, Stack size 32 bytes, dfixu.o(x$fpl$dfixu), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 </UL>
 
-<P><STRONG><a name="[110]"></a>__aeabi_i2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt))
+<P><STRONG><a name="[112]"></a>__aeabi_i2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt))
 <BR><BR>[Called By]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;area
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_angle
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_didt
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid_stabiliser
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
+<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
 </UL>
 
 <P><STRONG><a name="[24e]"></a>_dflt</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt), UNUSED)
@@ -2769,7 +2771,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_drcmple
 </UL>
 
-<P><STRONG><a name="[111]"></a>__aeabi_dmul</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul))
+<P><STRONG><a name="[113]"></a>__aeabi_dmul</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dmul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
@@ -2777,8 +2779,8 @@ Global Symbols
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_angle
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid_stabiliser
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bluetooth_listener
+<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;primitive_stabiliser
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 </UL>
 

@@ -33,6 +33,7 @@ int get_road_pos(void);
 
 int road_pos = 64;
 int mean_array[10];
+int posflag = 0;
 
 //---BLUETOOTH---//
 void bluetooth_listener(const uint8_t byte);

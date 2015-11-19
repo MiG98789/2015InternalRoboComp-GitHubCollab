@@ -117,7 +117,6 @@ void all_init(void){
 	for(int i = 0; i < 10; i++){
 		mean_array[i] = 64;
 	}
-	
 	motor_control(1,1,0);
 	motor_control(2,1,0);
 }
@@ -145,7 +144,7 @@ int get_road_pos(void){
 			tft_put_pixel(i, linear_ccd_buffer1[i], BLUE);
 		}
 	}
-			
+	
 	if(count < 5){
 		road_pos = 64;
 		blackflag = 1;
@@ -155,47 +154,88 @@ int get_road_pos(void){
 		road_pos = sum/count;	
 		blackflag = 0;
 	}
+	
+	//---Set flag in case of overshooting---//
+		
+	//turning left
+	if(road_pos != -1 && road_pos < 58){
+			posflag = 2;
+	}
+	
+	//turning right
+	else if(road_pos > 80){ 
+			posflag = 1;
+	}
+	
+	//straight
+	else if(road_pos >= 58 && road_pos <= 80){
+			posflag = 0;
+	}
+	
 	return road_pos;
 }
 
 void primitive_stabiliser(void){
-		//all black
+	//all black
 	if(blackflag == 1){
-		rightspeedratio = 0.8;
-		leftspeedratio = 0.64;
-		rightdirection = 0;
-		leftdirection = 0;
-		
+		while(blackflag == 1){
+			if(get_ms_ticks()%5 == 0){
+				get_road_pos();
+				switch(posflag){
+					case 0: //go backwards
+						rightspeedratio = 0.8;
+						leftspeedratio = 0.64;
+						rightdirection = 0;
+						leftdirection = 0;
+						break;
+					
+					case 1:	//pivot right
+						leftspeedratio = 0.97;
+						rightspeedratio = 1;
+						rightdirection = 0;
+						leftdirection = 1;
+						break;
+						
+					
+					case 2: //pivot left
+						leftspeedratio = 1;
+						rightspeedratio = 0.7;
+						rightdirection = 1;
+						leftdirection = 0;
+						break;
+				}
+	motor_control(1,rightdirection,rightspeedratio*motormag);
+	motor_control(2,leftdirection,leftspeedratio*motormag);			
+			}
+		}
 	}
 	
-	//turning left (need to fix: not turning left enough)
+	//turning left
 	else if(road_pos != -1 && road_pos < 58){
 			rightspeedratio = 0.8;
 			leftspeedratio = 0.6;
 			rightdirection = 1;
 			leftdirection = 0;		
+			posflag = 2;
 	}
 	
-	//turning right (can turn smoothly)
+	//turning right
 	else if(road_pos > 80){ 
 			rightspeedratio = 0.4;
 			leftspeedratio = 0.8;
 			rightdirection = 0;
 			leftdirection = 1;
+			posflag = 1;
 	}
 	
-	//straight (need to fix: left wheel too fast)
+	//straight
 	else if(road_pos >= 58 && road_pos <= 80){
 			rightspeedratio = 1;
 			leftspeedratio = 0.97;
 			rightdirection = 1;
 			leftdirection = 1;
+			posflag = 0;
 	}
-	
-	//90deg turn
-	
-	
-	//135deg turn
 	
 	//Check if at holder zone/starting zone
 	else{
@@ -205,17 +245,16 @@ void primitive_stabiliser(void){
 				check++;
 			}
 		}
-		
-		if(check > 125){
+		if(check > 110){
 		rightspeedratio = 0;
 		leftspeedratio = 0;
 		autoormanual = 1;
+			posflag = 10;
 		}
 	}
 			
-			uart_interrupt(COM3);
-			motor_control(1,rightdirection,rightspeedratio*motormag);
-			motor_control(2,leftdirection,leftspeedratio*motormag);
+	motor_control(1,rightdirection,rightspeedratio*motormag);
+	motor_control(2,leftdirection,leftspeedratio*motormag);
 }
 
 //---BLUETOOTH---//
@@ -369,14 +408,19 @@ void bluetooth_listener(const uint8_t byte){
 			break;
 			
 		case beginautozone:
-			autoormanual = 0
-		break;
+			autoormanual = 0;
+			break;
+	}
+	
+	if(autoormanual == 0){
+		main();
 	}
 }
 
 
 
 
+//---PID---//
 double PID(void){
 	//motor_speed = Kp*ccd_error + Kd* rate_of_change_of_ccd;
 	
@@ -489,6 +533,7 @@ int wheel_speed_on_arc(void){
 	}
 }
 
+//---AREA---//
 int area(void){
 	Larea = 0;
 	Marea = 0;
@@ -579,8 +624,8 @@ u32 deCasteljau(u32 args[], double t){
 	return deCasteljau(newArgs, t);
 }
 
-/*
 //---RAMER-DOUGLAS-PEUCKER ALGORITHM---//
+/*
 u32 DouglasPeucker(u32 args[], int startIndex, int lastIndex, double epsilon){
 	double dmax = 0;
 	int index = startIndex;
