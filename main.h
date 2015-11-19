@@ -53,17 +53,26 @@ int usergrip = 0;
 int flagraise = 0;
 int racketswing = 0;
 double leftspeedratio = 0.8;
-double rightspeedratio = 0.4;
+double rightspeedratio = 0.6;
 int leftdirection = 1;
 int rightdirection = 1;
 int motormag = 180;
 int autoormanual = 0;
+int blackflag = 0;
+int whiteflag = 0;
 
+//PID
+double Kp = 4;
+double Kd = 0;
+int ccd_error;
+double ccd_rate;
+int initial_ccd[128];
+int final_ccd[128];
+int final_road_pos;
+double pid;
 
-
-
-
-
+double PID(void);
+int pid_stabiliser();
 
 
 

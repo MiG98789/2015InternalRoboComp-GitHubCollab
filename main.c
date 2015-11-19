@@ -46,32 +46,41 @@
 int main(void){
 	all_init();
 	
-	while(1){		
+	while(1){
 		if(autoormanual == 0){
 			if(get_ms_ticks()%5 == 0){
-				tft_prints(0,0,"                     ");
-				tft_prints(0,0,"%d",get_road_pos()); 
+				/*
+				PID();
+				pid_stabiliser();
+				tft_clear();
+				tft_prints(0,0,"%d",road_pos);
+				tft_prints(0,1,"%.3f",pid);
+				tft_prints(0,2,"%.3f",leftspeedratio);
+				tft_prints(0,3,"%.3f",rightspeedratio);
 				tft_update();
+				*/
+				
+				get_road_pos();
 				primitive_stabiliser();
 			}
 		}
 
 		else{
-			uart_interrupt(COM3);
+//			uart_interrupt(COM3);
 			
 			if(read_GPIO_switch(GPIOA, GPIO_Pin_9)){ //left gripper
 				tft_prints(0,3,"                 ");
 				tft_prints(0,3,"LEFT CURRENT YES");
 				tft_update();
 				LED_ON(GPIOA, GPIO_Pin_15);
-				uart_tx(COM3, "%s", "LC0");
+				//uart_tx(COM3, "%s", "LC0");
 			}
 			else{
 				tft_prints(0,3,"                ");
 				tft_prints(0,3,"LEFT CURRENT NO");
 				tft_update();
 				LED_ON(GPIOA, GPIO_Pin_15);
-				uart_tx(COM3, "%s", "LC1");
+				//uart_tx(COM3, "%s", "LC1");
 			}
 
 			if(!read_GPIO_switch(GPIOA, GPIO_Pin_10)){ //right gripper
@@ -79,14 +88,14 @@ int main(void){
 				tft_prints(0,4,"RIGHT CURRENT YES");
 				tft_update();
 				LED_ON(GPIOA, GPIO_Pin_15);
-				uart_tx(COM3, "%s", "RC0");
+				//uart_tx(COM3, "%s", "RC0");
 			}
 			else{
 				tft_prints(0,4,"                ");
 				tft_prints(0,4,"RIGHT CURRENT NO");
 				tft_update();
 				LED_ON(GPIOB, GPIO_Pin_3);
-				uart_tx(COM3, "%s", "RC1");
+				//uart_tx(COM3, "%s", "RC1");
 			}
 		}
 	}	
@@ -103,12 +112,14 @@ void all_init(void){
 	adc_init();
 	button_init();
 	GPIO_switch_init();
-	buzzer_init();
 	uart_init(COM3, 115200);
 	uart_interrupt_init(COM3, &bluetooth_listener);
 	for(int i = 0; i < 10; i++){
 		mean_array[i] = 64;
 	}
+	
+	motor_control(1,1,0);
+	motor_control(2,1,0);
 }
 
 int get_road_pos(void){		
@@ -136,20 +147,31 @@ int get_road_pos(void){
 	}
 			
 	if(count < 5){
-		road_pos = -1;
-	}
-	else{
-		road_pos = sum/count;		
+		road_pos = 64;
+		blackflag = 1;
 	}
 	
+	else{
+		road_pos = sum/count;	
+		blackflag = 0;
+	}
 	return road_pos;
 }
 
 void primitive_stabiliser(void){
+		//all black
+	if(blackflag == 1){
+		rightspeedratio = 0.8;
+		leftspeedratio = 0.64;
+		rightdirection = 0;
+		leftdirection = 0;
+		
+	}
+	
 	//turning left (need to fix: not turning left enough)
-	if(road_pos != -1 && road_pos < 58){
+	else if(road_pos != -1 && road_pos < 58){
 			rightspeedratio = 0.8;
-			leftspeedratio = 0.4;
+			leftspeedratio = 0.6;
 			rightdirection = 1;
 			leftdirection = 0;		
 	}
@@ -164,13 +186,14 @@ void primitive_stabiliser(void){
 	
 	//straight (need to fix: left wheel too fast)
 	else if(road_pos >= 58 && road_pos <= 80){
-			rightspeedratio = 0.6;
-			leftspeedratio = 0.8;
+			rightspeedratio = 1;
+			leftspeedratio = 0.97;
 			rightdirection = 1;
 			leftdirection = 1;
 	}
 	
 	//90deg turn
+	
 	
 	//135deg turn
 	
@@ -189,16 +212,14 @@ void primitive_stabiliser(void){
 		autoormanual = 1;
 		}
 	}
-	
+			
+			uart_interrupt(COM3);
 			motor_control(1,rightdirection,rightspeedratio*motormag);
 			motor_control(2,leftdirection,leftspeedratio*motormag);
 }
 
 //---BLUETOOTH---//
-void bluetooth_listener(const uint8_t byte){	
-	leftspeedratio = 0.8;
-	rightspeedratio = 0.4;
-	
+void bluetooth_listener(const uint8_t byte){		
 	switch(byte){
 		//case for left gripper
 		case lgrip:
@@ -242,8 +263,10 @@ void bluetooth_listener(const uint8_t byte){
 		
 		//case for pivoting left
 		case pivotleft:
-			motor_control(1,0,motormag*rightspeedratio); //right wheel forward
-			motor_control(2,1,motormag*leftspeedratio); //left wheel backward
+			leftspeedratio = 1;
+			rightspeedratio = 0.7;
+			motor_control(1,1,motormag*rightspeedratio); //right wheel forward
+			motor_control(2,0,motormag*leftspeedratio); //left wheel backward
 			
 			tft_prints(0,2,"                     ");
 			tft_prints(0,2,"pivot left");
@@ -253,8 +276,10 @@ void bluetooth_listener(const uint8_t byte){
 		
 		//case for pivoting right
 		case pivotright:
-			motor_control(1,1,motormag*rightspeedratio); //right wheel backward
-			motor_control(2,0,motormag*leftspeedratio); //left wheel forward
+			leftspeedratio = 0.97;
+			rightspeedratio = 1;
+			motor_control(1,0,motormag*rightspeedratio); //right wheel backward
+			motor_control(2,1,motormag*leftspeedratio); //left wheel forward
 		
 			tft_prints(0,2,"                     ");
 			tft_prints(0,2,"pivot right");
@@ -264,6 +289,8 @@ void bluetooth_listener(const uint8_t byte){
 		
 		//case for moving forward
 		case forward:
+			leftspeedratio = 0.97;
+			rightspeedratio = 1;
 			motor_control(1,1,motormag*rightspeedratio);
 			motor_control(2,1,motormag*leftspeedratio);
 		
@@ -275,6 +302,8 @@ void bluetooth_listener(const uint8_t byte){
 		
 		//case for moving backward
 		case backward:
+			leftspeedratio = 0.8;
+			rightspeedratio = 1;
 			motor_control(1,0,motormag*rightspeedratio);
 			motor_control(2,0,motormag*leftspeedratio);
 		
@@ -322,28 +351,17 @@ void bluetooth_listener(const uint8_t byte){
 		case hit:
 			if(racketswing%2 == 0){
 				pneumatic_control(GPIOB, GPIO_Pin_7, 1);
-				uart_tx(COM3, "%s", "drop");
-				tft_prints(0,2,"                     ");
-				tft_prints(0,2,"drop");
-				tft_update();
 				
-				_delay_ms(150);
-				
+				_delay_ms(242);
+			
 				pneumatic_control(GPIOB, GPIO_Pin_5, 1);
-				uart_tx(COM3, "%s", "hit");
-				tft_prints(0,2,"                     ");
-				tft_prints(0,2,"hit");
-				tft_update();
 				racketswing++;
 			}
 			else{
 				pneumatic_control(GPIOB, GPIO_Pin_5, 0);
 				pneumatic_control(GPIOB, GPIO_Pin_7, 0);
 				
-				
-				tft_prints(0,2,"                     ");
-				tft_prints(0,2,"close");
-				tft_update();
+	
 				racketswing++;
 			}
 			
@@ -351,7 +369,7 @@ void bluetooth_listener(const uint8_t byte){
 			break;
 			
 		case beginautozone:
-			autoormanual = 0;
+			autoormanual = 0
 		break;
 	}
 }
@@ -359,12 +377,44 @@ void bluetooth_listener(const uint8_t byte){
 
 
 
+double PID(void){
+	//motor_speed = Kp*ccd_error + Kd* rate_of_change_of_ccd;
+	
+	final_road_pos = get_road_pos();	
+	ccd_error = final_road_pos - 64;
+	
+	pid = Kp*ccd_error/100;
+}
 
 
-
-
-
-
+int pid_stabiliser(void){
+	motormag = 115;
+	
+	//all black
+	if(blackflag == 1){
+		rightspeedratio = 0.8;
+		leftspeedratio = 0.5;
+		motor_control(1, 0,(int)(rightspeedratio*motormag));
+		motor_control(2,0,(int)(leftspeedratio*motormag));
+	}
+	
+	// turn left
+	else if(pid < 0){
+		pid *= -1;
+		leftspeedratio = 0.8 * (1 - pid);
+		rightspeedratio = 0.5 * (1 + pid);
+			motor_control(1,1,(int) (rightspeedratio * motormag));
+	motor_control(2,1,(int) (leftspeedratio * motormag));
+	}
+	
+	//turn right/go straight
+	else{
+		leftspeedratio = 0.8 * (1 + pid);
+		rightspeedratio = 0.5 * (1 - pid);
+			motor_control(1,1,(int) (rightspeedratio * motormag));
+	motor_control(2,1,(int) (leftspeedratio * motormag));
+	}
+}
 
 
 
