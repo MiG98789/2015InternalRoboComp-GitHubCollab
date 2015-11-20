@@ -7,6 +7,7 @@
 void encoder_init();
 void rightMotorDecode();
 void leftMotorDecode();
+void clearAll();
 int getLeftMotorDist();
 int getRightMotorDist();
 

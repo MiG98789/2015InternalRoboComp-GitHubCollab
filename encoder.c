@@ -11,11 +11,11 @@ int leftPosition = 0;
 void encoder_init(void) {
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE);
 	
-	GPIO_InitTypeDef GPIO_InitStructure;
-	GPIO_StructInit(&GPIO_InitStructure);
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	GPIO_InitTypeDef GPIO_Encoder_InitStructure;
+	GPIO_StructInit(&GPIO_Encoder_InitStructure);
+	GPIO_Encoder_InitStructure.GPIO_Mode = GPIO_Mode_IPD;
+	GPIO_Encoder_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12;
+	GPIO_Init(GPIOA, &GPIO_Encoder_InitStructure);
 	GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource9);
 	GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource10);
 	GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource11);
@@ -77,6 +77,11 @@ void EXTI15_10_IRQHandler(void) {
 		rightMotorDecode();		
 		EXTI_ClearITPendingBit(EXTI_Line12);
 	}
+}
+
+void clearAll() {
+	rightPosition = 0;
+	leftPosition = 0;
 }
 
 int getRightMotorDist() {

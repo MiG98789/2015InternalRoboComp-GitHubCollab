@@ -38,3 +38,4 @@
 .\objects\main.o: servo_tutorial.h
 .\objects\main.o: pneumatic_control.h
 .\objects\main.o: encoder.h
+.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

@@ -5,6 +5,11 @@
 	20/11/2015
 */
 #include "main.h"
+#include <stdbool.h>
+#include <math.h>
+
+bool seq = true;
+double motorRatio = 1;
 
 void motor_straight(int time);
 
@@ -16,11 +21,6 @@ int main()
 	motor_init();
 	encoder_init();
 	
-	//bool seq = true;
-	int ldist;
-	int rdist;
-	double ltor = 1;
-	
 	while(1) {
 		if (get_ms_ticks() % 1000 == 0) {
 			LED_ON(GPIOB, GPIO_Pin_4);
@@ -28,8 +28,6 @@ int main()
 		else if (get_ms_ticks() % 500 == 0) {
 			LED_OFF(GPIOB, GPIO_Pin_4);
 		}
-		//motor_control(1, 1, 100);
-		//motor_control(2, 1, 100);
 		
 		
 		if (get_ms_ticks() % 100 == 0) {
@@ -38,30 +36,38 @@ int main()
 			tft_prints(0, 1, "%d", getLeftMotorDist());
 			tft_update();
 		}
-		/*
-		if (get_ms_ticks() % ENCODER_PERIOD == 0) {
-			int leftwheel = getCount() - ldist;
-			int rightwheel = getCount() - rdist;
-			ltor = ldist / rdist;
-			motor_control(1, 1, ltor*100);
-		}
 		
 		if (seq) {
-			motor_straight(1000);
+			motor_straight(500);
 			seq = false;
-		}
-		*/
-		
-	}
-	
+		}		
+	}	
 	return 0;
 }
 
 void motor_straight(int time){
 	int start = get_ms_ticks();
 	while (get_ms_ticks() - start < time) {
-		motor_control(1, 1, 50);
-		motor_control(2, 1, 50);
+		motor_control(1, 1, 200);
+		motor_control(2, 1, 200);
+	}
+	motor_control(1, 1, 0);
+	motor_control(2, 1, 0);
+	return;
+}
+
+void motor_straightTimed(int time){
+	clearAll();
+	int slowMotor;
+	int start = get_ms_ticks();
+	while (get_ms_ticks() - start < time) {
+		slowMotor = (int)fmin(ceil(motorRatio),2);
+		motor_control(1, 1, 200);
+		motor_control(2, 1, 200);
+		if ((get_ms_ticks() - start) % 100 == 0) {
+			motorRatio = getLeftMotorDist() / getRightMotorDist();
+			clearAll();
+		}
 	}
 	motor_control(1, 1, 0);
 	motor_control(2, 1, 0);

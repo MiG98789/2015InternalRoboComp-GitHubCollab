@@ -626,8 +626,8 @@ I (.\stm32f10x_std\inc\stm32f10x_spi.h)(0x564CFFC0)
 I (.\stm32f10x_std\inc\stm32f10x_usart.h)(0x564CFFC0)
 I (.\stm32f10x_std\inc\misc.h)(0x564CFFBF)
 I (.\stm32f10x_std\inc\stm32f10x_tim.h)(0x564CFFC0)
-F (.\encoder.c)(0x564EE83C)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I C:\Users\Admin\Documents\2015InternalRoboComp-GitHubCollab\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="517" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\encoder.o --omf_browse .\objects\encoder.crf --depend .\objects\encoder.d)
-I (encoder.h)(0x564EEA32)
+F (.\encoder.c)(0x564EFB81)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I C:\Users\Admin\Documents\2015InternalRoboComp-GitHubCollab\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="517" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\encoder.o --omf_browse .\objects\encoder.crf --depend .\objects\encoder.d)
+I (encoder.h)(0x564EED00)
 I (.\stm32f10x_std\inc\stm32f10x.h)(0x564CFFBF)
 I (.\stm32f10x_std\inc\core_cm3.h)(0x564CFFBF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55DB2B80)
@@ -680,8 +680,8 @@ I (servo_tutorial.h)(0x564CFFBF)
 I (GPIO_switch.h)(0x564CFFBD)
 I (button.h)(0x564CFFBF)
 I (uart.h)(0x564CFFC0)
-F (.\main.c)(0x564EEBA2)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I C:\Users\Admin\Documents\2015InternalRoboComp-GitHubCollab\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="517" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (main.h)(0x564EE7EF)
+F (.\main.c)(0x564F00C6)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\stm32f10x_std\inc -I.\user-I C:\Users\Admin\Documents\2015InternalRoboComp-GitHubCollab\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="517" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_ML-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (main.h)(0x564EED00)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55DB2B76)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55DB2B78)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55DB2B80)
@@ -717,4 +717,5 @@ I (uart.h)(0x564CFFC0)
 I (C:\Keil_v5\ARM\ARMCC\include\assert.h)(0x55DB2B78)
 I (servo_tutorial.h)(0x564CFFBF)
 I (pneumatic_control.h)(0x564CFFBF)
-I (encoder.h)(0x564EEA32)
+I (encoder.h)(0x564EED00)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55DB2B76)
