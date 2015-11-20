@@ -17,6 +17,7 @@
 #include "uart.h"
 #include "servo_tutorial.h"
 #include "pneumatic_control.h"
+#include "encoder.h"
 
 #define MAX_CCRn			1000
 #define MIN_CCRn			450

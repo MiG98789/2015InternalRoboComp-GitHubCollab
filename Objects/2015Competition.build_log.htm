@@ -3,35 +3,80 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: µVision V5.16a
+IDE-Version: £gVision V5.17.0.0
 Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Gian Miguel Sero Del Mundo, HKUST Robotics Team, LIC=21E2Z-JGIYT-PB3EG-VCI3B-GS948-EZYFW
+License Information: Hong Wing Pang, HKUST Robotics Team, LIC=65IEV-P679T-8FXIE-5T32Q-5DIAI-FHK50
  
 Tool Versions:
-Toolchain:       MDK-ARM Standard  Version: 5.16a
+Toolchain:       MDK-ARM Standard  Version: 5.17
 Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.06 (build 20)
-Assembler:       Armasm.exe V5.06 (build 20)
-Linker/Locator:  ArmLink.exe V5.06 (build 20)
-Library Manager: ArmAr.exe V5.06 (build 20)
-Hex Converter:   FromElf.exe V5.06 (build 20)
-CPU DLL:         SARMCM3.DLL V5.16a
-Dialog DLL:      DCM.DLL V1.13.2.0
-Target DLL:      UL2CM3.DLL V1.155.12.0
-Dialog DLL:      TCM.DLL V1.14.5.0
+C Compiler:      Armcc.exe V5.06 update 1 (build 61)
+Assembler:       Armasm.exe V5.06 update 1 (build 61)
+Linker/Locator:  ArmLink.exe V5.06 update 1 (build 61)
+Library Manager: ArmAr.exe V5.06 update 1 (build 61)
+Hex Converter:   FromElf.exe V5.06 update 1 (build 61)
+CPU DLL:         SARMCM3.DLL V5.17
+Dialog DLL:      DCM.DLL V1.13.4.0
+Target DLL:      UL2CM3.DLL V1.156.1.0
+Dialog DLL:      TCM.DLL V1.14.6.0
  
 <h2>Project:</h2>
-C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\2015Competition.uvprojx
-Project File Date:  11/17/2015
+C:\Users\Admin\Documents\2015InternalRoboComp-GitHubCollab\2015Competition.uvprojx
+Project File Date:  11/20/2015
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 1 (build 61)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'STM32f103CBT_TEMPLATE'
-".\Objects\2015Competition.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+motor.h(6): warning:  #1-D: last line of file ends without a newline
+  void motor_control(u8 PWMx,u8 dir,u16 magnitude);//dir can be 1 or 0 , pwm can be 1 or 2  
+linear_ccd.h(25): warning:  #1295-D: Deprecated declaration linear_ccd_print - give arg types
+  void linear_ccd_print();
+linear_ccd.h(26): warning:  #1295-D: Deprecated declaration linear_ccd_clear - give arg types
+  void linear_ccd_clear();
+motor.h(6): warning:  #1-D: last line of file ends without a newline
+  void motor_control(u8 PWMx,u8 dir,u16 magnitude);//dir can be 1 or 0 , pwm can be 1 or 2  
+pneumatic_control.h(5): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+pneumatic_control.h(6): warning:  #1-D: last line of file ends without a newline
+  void pneumatic_control(GPIO_TypeDef* PORT,u16 gpio_pin,u8 state);
+encoder.h(7): warning:  #1295-D: Deprecated declaration encoder_init - give arg types
+  void encoder_init();
+encoder.h(8): warning:  #1295-D: Deprecated declaration rightMotorDecode - give arg types
+  void rightMotorDecode();
+encoder.h(9): warning:  #1295-D: Deprecated declaration leftMotorDecode - give arg types
+  void leftMotorDecode();
+encoder.h(10): warning:  #1295-D: Deprecated declaration getLeftMotorDist - give arg types
+  int getLeftMotorDist();
+encoder.h(11): warning:  #1295-D: Deprecated declaration getRightMotorDist - give arg types
+  int getRightMotorDist();
+encoder.h(13): warning:  #1295-D: Deprecated declaration EXTI9_5_IRQHandler - give arg types
+  void EXTI9_5_IRQHandler();
+encoder.h(14): warning:  #1-D: last line of file ends without a newline
+  void EXTI15_10_IRQHandler();
+encoder.h(14): warning:  #1295-D: Deprecated declaration EXTI15_10_IRQHandler - give arg types
+  void EXTI15_10_IRQHandler();
+main.h(99): warning:  #1-D: last line of file ends without a newline
+  u32 DouglasPeucker(u32 args[], int startIndex, int lastIndex, double epsilon);
+main.c(57): warning:  #111-D: statement is unreachable
+  	return 0;
+main.c(20): warning:  #177-D: variable "ldist" was declared but never referenced
+  	int ldist;
+main.c(21): warning:  #177-D: variable "rdist" was declared but never referenced
+  	int rdist;
+main.c(22): warning:  #177-D: variable "ltor" was declared but never referenced
+  	double ltor = 1;
+main.c(69): warning:  #1-D: last line of file ends without a newline
+  }
+main.c: 20 warnings, 0 errors
+linking...
+Program Size: Code=21496 RO-data=876 RW-data=4252 ZI-data=3836  
+FromELF: creating hex file...
+".\Objects\2015Competition.axf" - 0 Error(s), 20 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
-  C:\Users\Miguel\Documents\Personal Items\Robotics Team\Internal Competition 2015\Code\2016_sw_ library\RTE
-  C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include
+  C:\Users\Admin\Documents\2015InternalRoboComp-GitHubCollab\RTE
+  C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
 Build Time Elapsed:  00:00:02
