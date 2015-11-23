@@ -3,9 +3,9 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: £gVision V5.17.0.0
+IDE-Version: µVision V5.17.0.0
 Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Hong Wing Pang, HKUST Robotics Team, LIC=65IEV-P679T-8FXIE-5T32Q-5DIAI-FHK50
+License Information: Hong Wing Pang, HKUST Robotics Team, LIC=ATTGK-ZJ47P-V1BP8-3M9XB-AWNZQ-L5203
  
 Tool Versions:
 Toolchain:       MDK-ARM Standard  Version: 5.17
@@ -21,12 +21,102 @@ Target DLL:      UL2CM3.DLL V1.156.1.0
 Dialog DLL:      TCM.DLL V1.14.6.0
  
 <h2>Project:</h2>
-C:\Users\Admin\Documents\2015InternalRoboComp-GitHubCollab\2015Competition.uvprojx
-Project File Date:  11/20/2015
+C:\Users\Wing\Documents\2015InternalRoboComp-GitHubCollab\2015Competition.uvprojx
+Project File Date:  11/23/2015
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 1 (build 61)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'STM32f103CBT_TEMPLATE'
+assembling startup_stm32f10x_md.s...
+compiling core_cm3.c...
+compiling misc.c...
+compiling stm32f10x_adc.c...
+compiling stm32f10x_bkp.c...
+compiling stm32f10x_can.c...
+compiling stm32f10x_cec.c...
+compiling stm32f10x_crc.c...
+compiling stm32f10x_dbgmcu.c...
+compiling stm32f10x_dac.c...
+compiling stm32f10x_dma.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_fsmc.c...
+compiling stm32f10x_flash.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_iwdg.c...
+compiling stm32f10x_i2c.c...
+compiling stm32f10x_pwr.c...
+compiling stm32f10x_rtc.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_sdio.c...
+compiling stm32f10x_spi.c...
+compiling stm32f10x_tim.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_wwdg.c...
+compiling system_stm32f10x.c...
+compiling LEDs.c...
+LEDs.c(47): warning:  #1-D: last line of file ends without a newline
+  }
+LEDs.c: 1 warning, 0 errors
+compiling ticks.c...
+compiling tft_display.c...
+compiling linear_ccd.c...
+motor.h(6): warning:  #1-D: last line of file ends without a newline
+  void motor_control(u8 PWMx,u8 dir,u16 magnitude);//dir can be 1 or 0 , pwm can be 1 or 2  
+linear_ccd.h(25): warning:  #1295-D: Deprecated declaration linear_ccd_print - give arg types
+  void linear_ccd_print();
+linear_ccd.h(26): warning:  #1295-D: Deprecated declaration linear_ccd_clear - give arg types
+  void linear_ccd_clear();
+linear_ccd.c: 3 warnings, 0 errors
+compiling adc.c...
+adc.c(72): warning:  #1-D: last line of file ends without a newline
+  }
+adc.c: 1 warning, 0 errors
+compiling pneumatic_control.c...
+pneumatic_control.h(5): warning:  #1295-D: Deprecated declaration pneumatic_init - give arg types
+  void pneumatic_init();
+pneumatic_control.h(6): warning:  #1-D: last line of file ends without a newline
+  void pneumatic_control(GPIO_TypeDef* PORT,u16 gpio_pin,u8 state);
+pneumatic_control.c: 2 warnings, 0 errors
+compiling button.c...
+compiling GPIO_switch.c...
+GPIO_switch.c(34): warning:  #1-D: last line of file ends without a newline
+  }
+GPIO_switch.c: 1 warning, 0 errors
+compiling motor.c...
+motor.h(6): warning:  #1-D: last line of file ends without a newline
+  void motor_control(u8 PWMx,u8 dir,u16 magnitude);//dir can be 1 or 0 , pwm can be 1 or 2  
+motor.c(91): warning:  #1-D: last line of file ends without a newline
+  }
+motor.c: 2 warnings, 0 errors
+compiling buzzer.c...
+buzzer.c(63): warning:  #177-D: variable "GPIO_InitStruct" was declared but never referenced
+    GPIO_InitTypeDef GPIO_InitStruct;
+buzzer.c: 1 warning, 0 errors
+compiling buzzer_song.c...
+compiling servo_tutorial.c...
+compiling uart.c...
+compiling encoder.c...
+encoder.h(7): warning:  #1295-D: Deprecated declaration encoder_init - give arg types
+  void encoder_init();
+encoder.h(8): warning:  #1295-D: Deprecated declaration rightMotorDecode - give arg types
+  void rightMotorDecode();
+encoder.h(9): warning:  #1295-D: Deprecated declaration leftMotorDecode - give arg types
+  void leftMotorDecode();
+encoder.h(10): warning:  #1295-D: Deprecated declaration clearAll - give arg types
+  void clearAll();
+encoder.h(11): warning:  #1295-D: Deprecated declaration getLeftMotorDist - give arg types
+  int getLeftMotorDist();
+encoder.h(12): warning:  #1295-D: Deprecated declaration getRightMotorDist - give arg types
+  int getRightMotorDist();
+encoder.h(14): warning:  #1295-D: Deprecated declaration EXTI9_5_IRQHandler - give arg types
+  void EXTI9_5_IRQHandler();
+encoder.h(15): warning:  #1-D: last line of file ends without a newline
+  void EXTI15_10_IRQHandler();
+encoder.h(15): warning:  #1295-D: Deprecated declaration EXTI15_10_IRQHandler - give arg types
+  void EXTI15_10_IRQHandler();
+encoder.c(93): warning:  #1-D: last line of file ends without a newline
+  }
+encoder.c: 10 warnings, 0 errors
 compiling main.c...
 motor.h(6): warning:  #1-D: last line of file ends without a newline
   void motor_control(u8 PWMx,u8 dir,u16 magnitude);//dir can be 1 or 0 , pwm can be 1 or 2  
@@ -46,40 +136,48 @@ encoder.h(8): warning:  #1295-D: Deprecated declaration rightMotorDecode - give 
   void rightMotorDecode();
 encoder.h(9): warning:  #1295-D: Deprecated declaration leftMotorDecode - give arg types
   void leftMotorDecode();
-encoder.h(10): warning:  #1295-D: Deprecated declaration getLeftMotorDist - give arg types
+encoder.h(10): warning:  #1295-D: Deprecated declaration clearAll - give arg types
+  void clearAll();
+encoder.h(11): warning:  #1295-D: Deprecated declaration getLeftMotorDist - give arg types
   int getLeftMotorDist();
-encoder.h(11): warning:  #1295-D: Deprecated declaration getRightMotorDist - give arg types
+encoder.h(12): warning:  #1295-D: Deprecated declaration getRightMotorDist - give arg types
   int getRightMotorDist();
-encoder.h(13): warning:  #1295-D: Deprecated declaration EXTI9_5_IRQHandler - give arg types
+encoder.h(14): warning:  #1295-D: Deprecated declaration EXTI9_5_IRQHandler - give arg types
   void EXTI9_5_IRQHandler();
-encoder.h(14): warning:  #1-D: last line of file ends without a newline
+encoder.h(15): warning:  #1-D: last line of file ends without a newline
   void EXTI15_10_IRQHandler();
-encoder.h(14): warning:  #1295-D: Deprecated declaration EXTI15_10_IRQHandler - give arg types
+encoder.h(15): warning:  #1295-D: Deprecated declaration EXTI15_10_IRQHandler - give arg types
   void EXTI15_10_IRQHandler();
 main.h(99): warning:  #1-D: last line of file ends without a newline
   u32 DouglasPeucker(u32 args[], int startIndex, int lastIndex, double epsilon);
-main.c(53): warning:  #111-D: statement is unreachable
+main.c(45): warning:  #111-D: statement is unreachable
   	return 0;
-main.c(21): warning:  #177-D: variable "ldist" was declared but never referenced
-  	int ldist;
-main.c(22): warning:  #177-D: variable "rdist" was declared but never referenced
-  	int rdist;
-main.c(23): warning:  #177-D: variable "ltor" was declared but never referenced
-  	double ltor = 1;
-main.c(65): warning:  #1-D: last line of file ends without a newline
+main.c(75): warning:  #1-D: last line of file ends without a newline
   }
-main.c: 20 warnings, 0 errors
+main.c(61): warning:  #550-D: variable "slowMotor" was set but never used
+  	int slowMotor;
+main.c: 19 warnings, 0 errors
+compiling helper.c...
+motor.h(6): warning:  #1-D: last line of file ends without a newline
+  void motor_control(u8 PWMx,u8 dir,u16 magnitude);//dir can be 1 or 0 , pwm can be 1 or 2  
+linear_ccd.h(25): warning:  #1295-D: Deprecated declaration linear_ccd_print - give arg types
+  void linear_ccd_print();
+linear_ccd.h(26): warning:  #1295-D: Deprecated declaration linear_ccd_clear - give arg types
+  void linear_ccd_clear();
+motor.h(6): warning:  #1-D: last line of file ends without a newline
+  void motor_control(u8 PWMx,u8 dir,u16 magnitude);//dir can be 1 or 0 , pwm can be 1 or 2  
+helper.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=21512 RO-data=876 RW-data=4252 ZI-data=3836  
+Program Size: Code=23680 RO-data=876 RW-data=8472 ZI-data=3832  
 FromELF: creating hex file...
-".\Objects\2015Competition.axf" - 0 Error(s), 20 Warning(s).
+".\Objects\2015Competition.axf" - 0 Error(s), 44 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
-  C:\Users\Admin\Documents\2015InternalRoboComp-GitHubCollab\RTE
+  C:\Users\Wing\Documents\2015InternalRoboComp-GitHubCollab\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:11
 </pre>
 </body>
 </html>

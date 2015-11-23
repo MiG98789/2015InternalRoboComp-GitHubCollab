@@ -8,8 +8,11 @@
 #include <stdbool.h>
 #include <math.h>
 
+#define MOTOR_KP 80
+
 bool seq = true;
-double motorRatio = 1;
+double motorError = 0;
+int leftPower = 200;
 
 void motor_straight(int time);
 
@@ -57,15 +60,15 @@ void motor_straight(int time){
 }
 
 void motor_straightTimed(int time){
-	clearAll();
-	int slowMotor;
 	int start = get_ms_ticks();
+	clearAll();
+	
 	while (get_ms_ticks() - start < time) {
-		slowMotor = (int)fmin(ceil(motorRatio),2);
-		motor_control(1, 1, 200);
+		motor_control(1, 1, leftPower);
 		motor_control(2, 1, 200);
 		if ((get_ms_ticks() - start) % 100 == 0) {
-			motorRatio = getLeftMotorDist() / getRightMotorDist();
+			motorError = getLeftMotorDist() - getRightMotorDist(); //about 8 peaks per ms
+			leftPower -= motorError / MOTOR_KP;
 			clearAll();
 		}
 	}
