@@ -8,13 +8,15 @@
 #include <stdbool.h>
 #include <math.h>
 
-#define MOTOR_KP 80
+#define MOTOR_KP 80 //about 8 peaks per ms
 
 bool seq = true;
 double motorError = 0;
 int leftPower = 200;
 
 void motor_straight(int time);
+void motor_straightTimed(int time);
+void update_dist();
 
 int main()
 {
@@ -23,6 +25,8 @@ int main()
 	LED_INIT();
 	motor_init();
 	encoder_init();
+	motor_control(1, 1, 0);
+	motor_control(2, 1, 0);	
 	
 	while(1) {
 		if (get_ms_ticks() % 1000 == 0) {
@@ -31,28 +35,27 @@ int main()
 		else if (get_ms_ticks() % 500 == 0) {
 			LED_OFF(GPIOB, GPIO_Pin_4);
 		}
-		
-		
+				
 		if (get_ms_ticks() % 100 == 0) {
-			tft_clear();
-			tft_prints(0, 0, "%d", getRightMotorDist());
-			tft_prints(0, 1, "%d", getLeftMotorDist());
-			tft_update();
+			update_dist();
 		}
 		
 		if (seq) {
-			motor_straight(500);
+			motor_straightTimed(1500);
 			seq = false;
-		}		
+		}
 	}	
 	return 0;
 }
 
 void motor_straight(int time){
-	int start = get_ms_ticks();
-	while (get_ms_ticks() - start < time) {
+	int start = get_real_ticks();
+	while (get_real_ticks() - start < time) {
 		motor_control(1, 1, 200);
 		motor_control(2, 1, 200);
+		if ((get_real_ticks() - start) % 100 == 0) {
+			update_dist();
+		}
 	}
 	motor_control(1, 1, 0);
 	motor_control(2, 1, 0);
@@ -60,19 +63,29 @@ void motor_straight(int time){
 }
 
 void motor_straightTimed(int time){
-	int start = get_ms_ticks();
 	clearAll();
+	int start = get_real_ticks();
 	
-	while (get_ms_ticks() - start < time) {
-		motor_control(1, 1, leftPower);
-		motor_control(2, 1, 200);
-		if ((get_ms_ticks() - start) % 100 == 0) {
-			motorError = getLeftMotorDist() - getRightMotorDist(); //about 8 peaks per ms
+	while (get_real_ticks() - start < time) {
+		motor_control(1, 1, 200);
+		motor_control(2, 1, leftPower);
+		if ((get_real_ticks() - start) % 100 == 0) {
+			motorError = getLeftMotorDist() - getRightMotorDist();
 			leftPower -= motorError / MOTOR_KP;
 			clearAll();
+			update_dist();
 		}
 	}
 	motor_control(1, 1, 0);
 	motor_control(2, 1, 0);
 	return;
+}
+
+void update_dist() {
+	tft_clear();
+	tft_prints(0, 0, "R Dist: %d", getRightMotorDist());
+	tft_prints(0, 1, "L Dist: %d", getLeftMotorDist());
+	tft_prints(0, 3, "L PWM:  %d", leftPower);
+	//tft_prints(0, 5, "
+	tft_update();
 }
