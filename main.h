@@ -30,10 +30,15 @@ int main(void);
 void primitive_stabiliser(void);
 void all_init(void);
 int get_road_pos(void);
+int dynamic_threshold(void);
 
+int threshold = 150;
 int road_pos = 64;
 int mean_array[10];
 int posflag = 0;
+int lcount = 0;
+int mcount = 0;
+int rcount = 0;
 
 //---BLUETOOTH---//
 void bluetooth_listener(const uint8_t byte);
@@ -57,15 +62,16 @@ double leftspeedratio = 0.8;
 double rightspeedratio = 0.6;
 int leftdirection = 1;
 int rightdirection = 1;
-int motormag = 180;
+int motormag = 125;
 int autoormanual = 0;
 int blackflag = 0;
 int whiteflag = 0;
 
 //PID
 double Kp = 4;
-double Kd = 0;
-int ccd_error;
+double Kd = 2;
+int ccd_error_f=0;
+int ccd_error_i=0;
 double ccd_rate;
 int initial_ccd[128];
 int final_ccd[128];

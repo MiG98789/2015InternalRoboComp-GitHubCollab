@@ -1,11 +1,11 @@
 //---!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!IMPORTANT NOTES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---//
 /*
--    	Consider only the biggest for get_road_pos -Vikram 
+-    	Consider only the biggest for get_road_pos -Vikram
 -
 -			Moved some declarations into main.h so that order of declaration of functions and variables
 -			will not matter
 -
--			Changed speed to be dependent on a ratio	
+-			Changed speed to be dependent on a ratio
 -
 -			motor_control PWMx: 1 for PB15, 2 for PB14
 -
@@ -25,11 +25,11 @@
 -
 -				TODO (before Saturday):
 -					--> Find the correct magnitude of motor_control() for wheels
--					--> How to use get_angle() to turn 
+-					--> How to use get_angle() to turn
 -					--> When to call wheel_speed_on_arc()
 -					(X) --> What to do on a 90deg turn
 -					--> What to do on a 135deg turn
--					IF POSSIBLE:	
+-					IF POSSIBLE:
 -						--> Find correct timing for hitting badminton
 -						(X) --> Set up basic bluetooth functions
 -						--> Setting up PS3 driver to use PS3 controller to emulate keyboard (using Scarlet Crush)
@@ -45,60 +45,60 @@
 
 int main(void){
 	all_init();
-	
+	//dynamic_threshold();
+
 	while(1){
 		if(autoormanual == 0){
-			if(get_ms_ticks()%5 == 0){
-				/*
-				PID();
-				pid_stabiliser();
+			if(get_ms_ticks()%50 == 0){
 				tft_clear();
-				tft_prints(0,0,"%d",road_pos);
-				tft_prints(0,1,"%.3f",pid);
-				tft_prints(0,2,"%.3f",leftspeedratio);
-				tft_prints(0,3,"%.3f",rightspeedratio);
+				tft_prints(0,0,"threshold = %d",threshold);
+				tft_prints(0,1,"road_pos = %d",road_pos);
+				tft_prints(0,2,"lcount = %d",lcount);
+				tft_prints(0,3,"mcount = %d",mcount);
+				tft_prints(0,4,"rcount = %d",rcount);
+				tft_prints(0,5,"posflag = %d",posflag);
 				tft_update();
-				*/
 				
+				//---Clearing TFT---//
+				for(int i = 0; i < 128; i++){
+					tft_put_pixel(i, linear_ccd_buffer1[i], BLACK);
+				}
 				get_road_pos();
 				primitive_stabiliser();
+				
 			}
 		}
 
 		else{
-//			uart_interrupt(COM3);
-			
-			if(read_GPIO_switch(GPIOA, GPIO_Pin_9)){ //left gripper
-				tft_prints(0,3,"                 ");
-				tft_prints(0,3,"LEFT CURRENT YES");
+		//---left gripper---//
+		if(read_GPIO_switch(GPIOA, GPIO_Pin_11)){ 
+				tft_prints(0,0,"                 ");
+				tft_prints(0,0,"LEFT YES");
 				tft_update();
 				LED_ON(GPIOA, GPIO_Pin_15);
-				//uart_tx(COM3, "%s", "LC0");
 			}
 			else{
-				tft_prints(0,3,"                ");
-				tft_prints(0,3,"LEFT CURRENT NO");
+				tft_prints(0,0,"                ");
+				tft_prints(0,0,"LEFT NO");
 				tft_update();
-				LED_ON(GPIOA, GPIO_Pin_15);
-				//uart_tx(COM3, "%s", "LC1");
+				LED_OFF(GPIOA, GPIO_Pin_15);
 			}
 
-			if(!read_GPIO_switch(GPIOA, GPIO_Pin_10)){ //right gripper
+			//---right gripper---//
+			if(read_GPIO_switch(GPIOA, GPIO_Pin_10)){
 				tft_prints(0,4,"                  ");
-				tft_prints(0,4,"RIGHT CURRENT YES");
+				tft_prints(0,4,"RIGHT YES");
 				tft_update();
-				LED_ON(GPIOA, GPIO_Pin_15);
-				//uart_tx(COM3, "%s", "RC0");
+				LED_ON(GPIOB, GPIO_Pin_3);
 			}
 			else{
 				tft_prints(0,4,"                ");
-				tft_prints(0,4,"RIGHT CURRENT NO");
+				tft_prints(0,4,"RIGHT NO");
 				tft_update();
-				LED_ON(GPIOB, GPIO_Pin_3);
-				//uart_tx(COM3, "%s", "RC1");
+				LED_OFF(GPIOB, GPIO_Pin_3);
 			}
-		}
-	}	
+		} 
+	}
 	return 0;
 }
 
@@ -121,18 +121,32 @@ void all_init(void){
 	motor_control(2,1,0);
 }
 
-int get_road_pos(void){		
+
+int dynamic_threshold(void){
 	int sum = 0;
 	int count = 0;
+		threshold = 160;
+		for(int i = 63; i < 65 ; i++){
+			if(linear_ccd_buffer1[i] < threshold){
+				threshold = linear_ccd_buffer1[i];
+				if(threshold < 50){
+					linear_ccd_read();
+					dynamic_threshold();
+				}
+			}
+		}
+}
+
+int get_road_pos(void){
+	int sum = 0;
+	int count = 0;
+	lcount = 0;
+	mcount = 0;
+	rcount = 0;
+	threshold = 150;
 	
-	//---Clearing TFT---//
-	for(int i = 0; i < 128; i++){
-	tft_put_pixel(i, linear_ccd_buffer1[i], BLACK);
-	}
-	
-	//---Updating CCD and getting road_pos---//
 	linear_ccd_read();
-		
+
 	//---Updating TFT and calculating road_pos---//
 	for(int i = 0; i < 128; i++){
 		if(linear_ccd_buffer1[i] >= 150){
@@ -144,92 +158,88 @@ int get_road_pos(void){
 			tft_put_pixel(i, linear_ccd_buffer1[i], BLUE);
 		}
 	}
-	
+
 	if(count < 5){
-		road_pos = 64;
-		blackflag = 1;
+		road_pos = -1;
 	}
-	
+
 	else{
-		road_pos = sum/count;	
-		blackflag = 0;
+		road_pos = sum/count;
+	}
+
+	for(int i = 0; i < 42; i++){
+		if(linear_ccd_buffer1[i] >= 150){
+			lcount++;
+		}
 	}
 	
-	//---Set flag in case of overshooting---//
-		
-	//turning left
-	if(road_pos != -1 && road_pos < 58){
-			posflag = 2;
+	for(int i = 42; i < 85; i++){
+		if(linear_ccd_buffer1[i] >= 150){
+			mcount++;
+		}
 	}
 	
-	//turning right
-	else if(road_pos > 80){ 
-			posflag = 1;
+	for(int i = 85; i < 128; i++){
+		if(linear_ccd_buffer1[i] >= 150){
+			rcount++;
+		}
 	}
-	
-	//straight
-	else if(road_pos >= 58 && road_pos <= 80){
-			posflag = 0;
-	}
-	
+
 	return road_pos;
 }
 
 void primitive_stabiliser(void){
-	//all black
-	if(blackflag == 1){
-		while(blackflag == 1){
-			if(get_ms_ticks()%5 == 0){
-				get_road_pos();
-				switch(posflag){
-					case 0: //go backwards
-						rightspeedratio = 0.8;
-						leftspeedratio = 0.64;
-						rightdirection = 0;
-						leftdirection = 0;
-						break;
-					
-					case 1:	//pivot right
-						leftspeedratio = 0.97;
-						rightspeedratio = 1;
-						rightdirection = 0;
-						leftdirection = 1;
-						break;
-						
-					
-					case 2: //pivot left
-						leftspeedratio = 1;
-						rightspeedratio = 0.7;
-						rightdirection = 1;
-						leftdirection = 0;
-						break;
-				}
-	motor_control(1,rightdirection,rightspeedratio*motormag);
-	motor_control(2,leftdirection,leftspeedratio*motormag);			
+	if(lcount > 10 && mcount > 20){
+		while(road_pos == -1 || road_pos < 58 || road_pos > 70){
+			if(get_ms_ticks()%50==0){
+			get_road_pos();
+			rightspeedratio = 0.8;
+			leftspeedratio = 0.6;
+			rightdirection = 1;
+			leftdirection = 0;
+motor_control(1,rightdirection,rightspeedratio*motormag);
+	motor_control(2,leftdirection,leftspeedratio*motormag);
+				_delay_ms(500);
 			}
 		}
 	}
+	
+	else if(mcount > 20 && rcount > 10){
+		while(road_pos == -1 || road_pos < 58 || road_pos > 70){
+			if(get_ms_ticks()%50==0){
+				get_road_pos();
+							rightspeedratio = 0.4;
+			leftspeedratio = 0.8;
+			rightdirection = 0;
+			leftdirection = 1;
+				motor_control(1,rightdirection,rightspeedratio*motormag);
+	motor_control(2,leftdirection,leftspeedratio*motormag);
+				_delay_ms(500);
+			}
+		}
+	}
+	
 	
 	//turning left
 	else if(road_pos != -1 && road_pos < 58){
 			rightspeedratio = 0.8;
 			leftspeedratio = 0.6;
 			rightdirection = 1;
-			leftdirection = 0;		
+			leftdirection = 0;
 			posflag = 2;
 	}
-	
+
 	//turning right
-	else if(road_pos > 80){ 
+	else if(road_pos > 70){
 			rightspeedratio = 0.4;
 			leftspeedratio = 0.8;
 			rightdirection = 0;
 			leftdirection = 1;
 			posflag = 1;
 	}
-	
+
 	//straight
-	else if(road_pos >= 58 && road_pos <= 80){
+	else if(road_pos >= 58 && road_pos <= 70){
 			rightspeedratio = 1;
 			leftspeedratio = 0.97;
 			rightdirection = 1;
@@ -237,183 +247,176 @@ void primitive_stabiliser(void){
 			posflag = 0;
 	}
 	
-	//Check if at holder zone/starting zone
-	else{
-		int check = 0;
-		for(int i = 0; i < 128; i++){
-			if(linear_ccd_buffer1[i] >= 150){
-				check++;
+	else if(road_pos == -1){
+		while(road_pos == -1 || road_pos < 58 || road_pos > 70){
+			if(get_ms_ticks()%50 == 0){
+			get_road_pos();
+			
+			switch(posflag){
+				case 0:
+					rightspeedratio = 1;
+					leftspeedratio = 0.8;
+					rightdirection = 0;
+					leftdirection = 0;
+				  posflag = 0;
+					break;
+			
+				case 1:
+					leftspeedratio = 1;
+					rightspeedratio = 0;
+					rightdirection = 0;
+					leftdirection = 1;
+					posflag = 1;
+					break;
+				
+				case 2:
+					rightspeedratio = 0;
+					leftspeedratio = 0.97;
+					rightdirection = 1;
+					leftdirection = 0;
+					posflag = 2;
+					break;
 			}
-		}
-		if(check > 110){
-		rightspeedratio = 0;
-		leftspeedratio = 0;
-		autoormanual = 1;
-			posflag = 10;
+				motor_control(1,rightdirection,rightspeedratio*motormag);
+	motor_control(2,leftdirection,leftspeedratio*motormag);
 		}
 	}
-			
+	}
+	
 	motor_control(1,rightdirection,rightspeedratio*motormag);
 	motor_control(2,leftdirection,leftspeedratio*motormag);
 }
 
 //---BLUETOOTH---//
-void bluetooth_listener(const uint8_t byte){		
+void bluetooth_listener(const uint8_t byte){
 	switch(byte){
 		//case for left gripper
 		case lgrip:
 			if(uselgrip%2 == 0){
-				pneumatic_control(GPIOB, GPIO_Pin_5, 1);
+				pneumatic_control(GPIOB, GPIO_Pin_8, 1);
 				tft_prints(0,2,"                     ");
 				tft_prints(0,2,"lgrip open");
 				tft_update();
 				uselgrip++;
 			}
 			else{
-				pneumatic_control(GPIOB, GPIO_Pin_5, 0);
+				pneumatic_control(GPIOB, GPIO_Pin_8, 0);
 				tft_prints(0,2,"                     ");
 				tft_prints(0,2,"lgrip close");
 				tft_update();
 				uselgrip++;
 			}
-			
+
 			uart_tx_byte(COM3, 'o');
 			break;
-		
+
 		//case for right gripper
 		case rgrip:
 			if(usergrip%2 == 0){
-				pneumatic_control(GPIOB, GPIO_Pin_6, 1);
+				pneumatic_control(GPIOB, GPIO_Pin_7, 1);
 				tft_prints(0,2,"                     ");
 				tft_prints(0,2,"rgrip open");
 				tft_update();
 				usergrip++;
 			}
 			else{
-				pneumatic_control(GPIOB, GPIO_Pin_6, 0);
+				pneumatic_control(GPIOB, GPIO_Pin_7, 0);
 				tft_prints(0,2,"                     ");
 				tft_prints(0,2,"rgrip close");
 				tft_update();
 				usergrip++;
 			}
-		
+
 			uart_tx_byte(COM3, 'p');
 			break;
-		
+
 		//case for pivoting left
 		case pivotleft:
 			leftspeedratio = 1;
 			rightspeedratio = 0.7;
 			motor_control(1,1,motormag*rightspeedratio); //right wheel forward
 			motor_control(2,0,motormag*leftspeedratio); //left wheel backward
-			
+
 			tft_prints(0,2,"                     ");
 			tft_prints(0,2,"pivot left");
 			tft_update();
 			uart_tx_byte(COM3, 'a');
 			break;
-		
+
 		//case for pivoting right
 		case pivotright:
 			leftspeedratio = 0.97;
 			rightspeedratio = 1;
 			motor_control(1,0,motormag*rightspeedratio); //right wheel backward
 			motor_control(2,1,motormag*leftspeedratio); //left wheel forward
-		
+
 			tft_prints(0,2,"                     ");
 			tft_prints(0,2,"pivot right");
 			tft_update();
 			uart_tx_byte(COM3, 'd');
 			break;
-		
+
 		//case for moving forward
 		case forward:
 			leftspeedratio = 0.97;
 			rightspeedratio = 1;
 			motor_control(1,1,motormag*rightspeedratio);
 			motor_control(2,1,motormag*leftspeedratio);
-		
+
 			tft_prints(0,2,"                     ");
 			tft_prints(0,2,"forward");
 			tft_update();
 			uart_tx_byte(COM3, 'w');
 			break;
-		
+
 		//case for moving backward
 		case backward:
 			leftspeedratio = 0.8;
 			rightspeedratio = 1;
 			motor_control(1,0,motormag*rightspeedratio);
 			motor_control(2,0,motormag*leftspeedratio);
-		
+
 			tft_prints(0,2,"                     ");
 			tft_prints(0,2,"backward");
 			tft_update();
 			uart_tx_byte(COM3, 's');
 			break;
-		
+
 		//case for stopping
 		case stop:
 			motor_control(1,0,0);
 			motor_control(2,0,0);
-		
+
 			tft_prints(0,2,"                     ");
 			tft_prints(0,2,"stop");
 			tft_update();
 			uart_tx(COM3, "%s","Stop");
 			break;
-		
-		//case for raising flag
-		case raiseflag:
-			if(flagraise%2 == 0){
-				pneumatic_control(GPIOB, GPIO_Pin_6, 1);
-				
-				tft_prints(0,2,"                     ");
-				tft_prints(0,2,"flag up");
-				tft_update();
-				flagraise++;
-			}
-			else{
-				pneumatic_control(GPIOB, GPIO_Pin_6, 0);
-				
-				tft_prints(0,2,"                     ");
-				tft_prints(0,2,"flag down");
-				tft_update();
-				flagraise++;
-			}
-			
-			uart_tx_byte(COM3, 'f');
-			break;
-			
-		
+
 		//case for dropping shuttlecock and hitting with racket
 		case hit:
 			if(racketswing%2 == 0){
 				pneumatic_control(GPIOB, GPIO_Pin_7, 1);
-				
+
 				_delay_ms(242);
-			
+
 				pneumatic_control(GPIOB, GPIO_Pin_5, 1);
 				racketswing++;
 			}
 			else{
 				pneumatic_control(GPIOB, GPIO_Pin_5, 0);
 				pneumatic_control(GPIOB, GPIO_Pin_7, 0);
-				
-	
+
+
 				racketswing++;
 			}
-			
+
 			uart_tx_byte(COM3, 'h');
 			break;
-			
+
 		case beginautozone:
 			autoormanual = 0;
 			break;
-	}
-	
-	if(autoormanual == 0){
-		main();
 	}
 }
 
@@ -423,25 +426,28 @@ void bluetooth_listener(const uint8_t byte){
 //---PID---//
 double PID(void){
 	//motor_speed = Kp*ccd_error + Kd* rate_of_change_of_ccd;
-	
-	final_road_pos = get_road_pos();	
-	ccd_error = final_road_pos - 64;
-	
-	pid = Kp*ccd_error/100;
+	ccd_error_i = ccd_error_f;
+
+	final_road_pos = get_road_pos();
+	ccd_error_f = final_road_pos - 64;
+
+	ccd_rate = (ccd_error_f-ccd_error_i)/0.05;
+
+	pid = Kp*ccd_error_f/100 + Kd*ccd_rate/100;
 }
 
 
 int pid_stabiliser(void){
 	motormag = 115;
-	
+
 	//all black
 	if(blackflag == 1){
 		rightspeedratio = 0.8;
 		leftspeedratio = 0.5;
-		motor_control(1, 0,(int)(rightspeedratio*motormag));
-		motor_control(2,0,(int)(leftspeedratio*motormag));
+		motor_control(1, 0,(int)(1*motormag));
+		motor_control(2,0,(int)(0.97*motormag));
 	}
-	
+
 	// turn left
 	else if(pid < 0){
 		pid *= -1;
@@ -450,7 +456,7 @@ int pid_stabiliser(void){
 			motor_control(1,1,(int) (rightspeedratio * motormag));
 	motor_control(2,1,(int) (leftspeedratio * motormag));
 	}
-	
+
 	//turn right/go straight
 	else{
 		leftspeedratio = 0.8 * (1 + pid);
@@ -472,18 +478,18 @@ int pid_stabiliser(void){
 int get_moving_average(void){
 	mai = maf;
 	int sum = 0;
-	
+
 	for(int i = 0; i < 9; i++){
 		mean_array[i] = mean_array[i+1];
 	}
 	mean_array[9] = get_road_pos();
-	
+
 	for(int j = 0; j < 10; j++){
 		sum += mean_array[j];
 	}
-	
+
 	maf = sum/10;
-	
+
 	return maf;
 }
 
@@ -506,16 +512,16 @@ int get_didt(void){
 		}
 	}
 			*/
-		
+
 		didt = (get_moving_average() - mai)/0.01;
-	
+
 	return didt;
 }
 
-int get_angle(void){	
+int get_angle(void){
 	double halfccdrange = 0.26; //need to find thru test (from 15cm high, can see 26 cm)
 	double speed = 0.5; //need to find thru test
-	
+
 	angle = atan((-1*halfccdrange/(speed*64))*get_didt())*1000;
 
 	return angle;
@@ -523,11 +529,11 @@ int get_angle(void){
 
 int wheel_speed_on_arc(void){
 	double wheelbase = 0.4;
-	
+
 	if(angle > 0){
 	rightspeedratio = leftspeedratio*(1-wheelbase)/(1+wheelbase);
 	}
-	
+
 	else if(angle < 0){
 	leftspeedratio = rightspeedratio*(1-wheelbase)/(1+wheelbase);
 	}
@@ -539,37 +545,37 @@ int area(void){
 	Marea = 0;
 	Rarea = 0;
 	areaflag = 0;
-	
+
 	//Calculating left area
 	for(int i = 0; i < 42; i++){
 		Larea += ccd_refined[i];
 	}
-	
+
 	//Calculating middle area
 	for(int i = 42; i < 85; i++){
 		Marea += ccd_refined[i];
 	}
-	
+
 	//Calculating right area
 	for(int i = 85; i < 128; i++){
 		Rarea += ccd_refined[i];
 	}
-	
+
 	//Too right, so turn left
 	if(Rarea > Marea && Rarea > Larea){
 		areaflag = 0;
 	}
-	
+
 	//Stay middle
 	else if(Marea > Rarea && Marea > Larea){
 		areaflag = 1;
 	}
-	
+
 	//Too left, turn right
 	else if(Larea > Marea && Larea > Rarea){
 		areaflag = 2;
 	}
-	
+
 	//Stop when full white line
 	else if(Larea >= 42*140 && Rarea >= 43*140  && Marea >= 42*140){
 		areaflag = 3;
@@ -588,24 +594,24 @@ int stabiliser(void){
 			tft_prints(0,1,"turn left");
 			tft_update();
 			break;
-		
+
 		case 1:
 			tft_prints(0,1,"                     ");
 			tft_prints(0,1,"go straight");
 			tft_update();
 			break;
-		
+
 		case 2:
 			tft_prints(0,1,"                     ");
 			tft_prints(0,1,"turn right");
 			tft_update();
-			break;		
-		
+			break;
+
 		case 3:
 			tft_prints(0,1,"                     ");
 			tft_prints(0,1,"stop");
 			tft_update();
-			break;			
+			break;
 	}
 }
 //---DECASTELJAU ALGORITHM---//
@@ -613,10 +619,10 @@ u32 deCasteljau(u32 args[], double t){
 	if(sizeof(args)/sizeof(args[0]) == 1){
 		return args[0];
 	}
-	
+
 	u32 newSize = sizeof(args)/sizeof(args[0]) - 1;
 	u32 newArgs[newSize];
-	
+
 	for(int i = 0; i < sizeof(args)/sizeof(args[0]); i++){
 		newArgs[i] = (1-t) * args[i] + t*args[i+1];
 	}
@@ -630,7 +636,7 @@ u32 DouglasPeucker(u32 args[], int startIndex, int lastIndex, double epsilon){
 	double dmax = 0;
 	int index = startIndex;
 	int i = index + 1;
-		
+
 	for(i = index + 1; i < lastIndex; i++){
 		double d;
 		if(d > dmax){
@@ -638,46 +644,46 @@ u32 DouglasPeucker(u32 args[], int startIndex, int lastIndex, double epsilon){
 			dmax = d;
 		}
 	}
-	
+
 	if(dmax > epsilon){
 		double res1[200];
 		double res2[200];
-		
+
 		int j = 0;
 		while(res1[j] != '\0')
 			{
 				++j;
-			} 
+			}
 		res1[j] = DouglasPeucker(args, startIndex, index, epsilon);
-		
+
 		res2[j] = DouglasPeucker(args, index, lastIndex, epsilon);
-		
+
 		j = 0;
 		while(res1[j] != '\0')
 			{
 				++j;
-			} 
+			}
 		double finalRes[1000];
-		
+
 		j = 0;
-		
+
 		for(int i = 0; i < sizeof(res1)/sizeof(res1[0]);i++){
 			while(finalRes[j] != '\0')
 			{
 				++j;
 			}
-			finalRes[j] = res1[i]; 
+			finalRes[j] = res1[i];
 		}
-		
+
 		j = 0;
 		for(int i = 0; i < sizeof(res2)/sizeof(res2[0]);i++){
 			while(finalRes[j] != '\0')
 			{
 				++j;
 			}
-			finalRes[j] = res2[i]; 
+			finalRes[j] = res2[i];
 		}
-		
+
 		return finalRes[0];
 	}
 	else{
@@ -689,7 +695,7 @@ u32 DouglasPeucker(u32 args[], int startIndex, int lastIndex, double epsilon){
 
 double PointLineDistance(double pointx, double pointy, double startx, double starty, double endx, double endy){
 	if(startx == endx && starty == endy){
-		
+
 	}
 }
 */
