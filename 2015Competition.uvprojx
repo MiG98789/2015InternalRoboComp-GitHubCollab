@@ -178,7 +178,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3>"flash.bat" (./Objects/2015Competition.hex 3 115200 STM32F1_Med-density_128K)</Flash3>
+          <Flash3>"flash.bat" (./Objects/2015Competition.hex 4 115200 STM32F1_Med-density_128K)</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp>user</pFcarmGrp>
@@ -602,11 +602,6 @@
               <FilePath>.\motor.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\buzzer.c</FilePath>
-            </File>
-            <File>
               <FileName>buzzer_song.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\buzzer_song.c</FilePath>
@@ -615,6 +610,11 @@
               <FileName>uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\buzzer.c</FilePath>
             </File>
             <File>
               <FileName>servo_tutorial.c</FileName>

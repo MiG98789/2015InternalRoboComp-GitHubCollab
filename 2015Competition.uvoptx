@@ -667,8 +667,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\buzzer.c</PathWithFileName>
-      <FilenameWithoutPath>buzzer.c</FilenameWithoutPath>
+      <PathWithFileName>.\buzzer_song.c</PathWithFileName>
+      <FilenameWithoutPath>buzzer_song.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -679,8 +679,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\buzzer_song.c</PathWithFileName>
-      <FilenameWithoutPath>buzzer_song.c</FilenameWithoutPath>
+      <PathWithFileName>.\uart.c</PathWithFileName>
+      <FilenameWithoutPath>uart.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -691,8 +691,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\uart.c</PathWithFileName>
-      <FilenameWithoutPath>uart.c</FilenameWithoutPath>
+      <PathWithFileName>.\buzzer.c</PathWithFileName>
+      <FilenameWithoutPath>buzzer.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
